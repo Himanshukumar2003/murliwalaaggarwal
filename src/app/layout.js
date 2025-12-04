@@ -1,5 +1,18 @@
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
+import localFont from "next/font/local";
+import DelayedPopup from "@/components/popup";
+import Footer from "@/components/footer";
+import Header from "@/components/navbar";
+
+export const brandonText = localFont({
+  src: [
+    {
+      path: "../../public/font/edensor/Edensor-FREE.otf",
+    },
+  ],
+  variable: "--font-brandon",
+});
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -18,11 +31,15 @@ export const metadata = {
 
 export default function RootLayout({ children }) {
   return (
-    <html lang="en">
+    <html lang="en" suppressHydrationWarning>
       <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased`}
+        className={`${geistSans.variable} ${geistMono.variable} ${brandonText.variable} antialiased`}
       >
+        <Header />
+
         {children}
+        <DelayedPopup />
+        <Footer></Footer>
       </body>
     </html>
   );
