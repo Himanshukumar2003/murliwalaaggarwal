@@ -4,6 +4,9 @@ import localFont from "next/font/local";
 import DelayedPopup from "@/components/popup";
 import Footer from "@/components/footer";
 import Header from "@/components/navbar";
+import Layout from "@/components/layout/layout";
+import QueryProvider from "@/providers/query-client-provider";
+import Providers from "@/lib/povider";
 
 export const brandonText = localFont({
   src: [
@@ -35,11 +38,12 @@ export default function RootLayout({ children }) {
       <body
         className={`${geistSans.variable} ${geistMono.variable} ${brandonText.variable} antialiased`}
       >
-        <Header />
-
-        {children}
-        <DelayedPopup />
-        <Footer></Footer>
+        <QueryProvider>
+          <Providers>
+            <Layout>{children}</Layout>
+            {/* <DelayedPopup /> */}
+          </Providers>
+        </QueryProvider>
       </body>
     </html>
   );

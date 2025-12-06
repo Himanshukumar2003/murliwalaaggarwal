@@ -25,7 +25,7 @@ export default function DelayedPopup() {
       <DialogContent className="min-w-[900px] p-0 !rounded-none  max-h-[330px] overflow-hidden z-99 flex !bottom-0 !left-auto !right-0 translate-0 border-0">
         <div className="w-1/2 relative hidden md:block">
           <Image
-            src="/img/popup.jpg"
+            src="/img/popup.webp"
             alt="Offer"
             fill
             className="object-cover"
