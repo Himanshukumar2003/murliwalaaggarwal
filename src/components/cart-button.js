@@ -2,10 +2,10 @@
 
 import { useDispatch } from "react-redux";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
-import { fetchCartItems, toggleCart } from "@/lib/features/slice";
+import { toggleCart } from "@/lib/features/slice";
 import { addToCart } from "@/services/cart-services";
 import { handleError } from "@/lib/handle-error-toast";
-import { ShoppingCart, Loader2 } from "lucide-react";
+import { Loader2 } from "lucide-react";
 import { useAuth } from "@/providers/auth-provider";
 import { useRouter } from "next/navigation";
 
@@ -21,39 +21,38 @@ export const AddToCartButtonProduct = ({
   const router = useRouter();
   const queryClient = useQueryClient();
 
-  const { mutate, isPending } = useMutation({
+  const { mutate, isPending, isError, error } = useMutation({
     mutationFn: addToCart,
     onSuccess: (data) => {
       queryClient.invalidateQueries(["cart"]);
       queryClient.invalidateQueries(["cart-items"]);
       dispatch(toggleCart());
-      console.log("Added to cart:", data);
     },
-    onError: (err) => {
+    onError: (err, variables) => {
       handleError(err);
     },
   });
 
   const handleAddToCart = () => {
-    if (!user) {
-      return router.push("/login");
-    }
+    if (!user) return router.push("/login");
 
-    mutate({
+    const cartData = {
       product_id: product.id,
       sections,
-      bag_print,
-      print_sticker_on_box,
-      front_print,
+      ...(bag_print && { bag_print }),
+      ...(print_sticker_on_box && { print_sticker_on_box }),
+      ...(front_print && { front_print }),
       slug: product.slug,
-    });
+    };
+
+    mutate(cartData);
   };
 
   return (
     <button
       onClick={handleAddToCart}
       disabled={isPending}
-      className="relative flex items-center gap-2 px-4 min-h-[50px] rounded-none uppercase bg-transparent border border-primary text-primary font-semibold text-md tracking-[0.32px] transition-all duration-500 ease-[cubic-bezier(0,.97,.43,1)] hover:bg-primary hover:text-white"
+      className="relative rounded-none items-center !flex gap-2 px-4 min-h-[50px] uppercase bg-transparent border border-primary text-primary leading-normal inline-block text-center text-md font-semibold tracking-[0.32px] transition-all duration-500 ease-[cubic-bezier(0,.97,.43,1)] hover:border-primary hover:text-white hover:bg-primary"
     >
       {isPending ? <Loader2 className="animate-spin" /> : "Add to cart"}
     </button>

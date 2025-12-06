@@ -159,59 +159,40 @@ export default function CartSidebar() {
                         ₹{item.price}
                       </p>
 
-                      {/* 🧾 Stock Status */}
-                      {item.stock === 0 ? (
-                        <p className="text-red-600 text-xs font-bold uppercase tracking-wide">
-                          Out of stock
-                        </p>
-                      ) : item.stock <= 5 ? (
-                        <p className="text-orange-500 text-xs font-semibold">
-                          Only {item.stock} left in stock!
-                        </p>
-                      ) : null}
-
                       <div className="flex items-center gap-2 mt-1">
-                        {item.stock > 0 ? (
-                          <>
-                            <Button
-                              variant="outline"
-                              size="icon"
-                              className="h-7 w-7 bg-white border hover:bg-blue-50"
-                              disabled={item.quantity <= 1}
-                              onClick={() =>
-                                mutate({
-                                  id: item.id,
-                                  quantity: item.quantity - 1,
-                                })
-                              }
-                            >
-                              <Minus className="h-4 w-4" />
-                            </Button>
+                        <Button
+                          variant="outline"
+                          size="icon"
+                          className="h-7 w-7 bg-white border hover:bg-blue-50"
+                          disabled={item.quantity <= 1}
+                          onClick={() =>
+                            mutate({
+                              id: item.id,
+                              quantity: item.quantity - 1,
+                            })
+                          }
+                        >
+                          <Minus className="h-4 w-4" />
+                        </Button>
 
-                            <span className="text-sm font-medium">
-                              {item.quantity}
-                            </span>
+                        <span className="text-sm font-medium">
+                          {item.quantity}
+                        </span>
 
-                            <Button
-                              variant="outline"
-                              size="icon"
-                              className="h-7 w-7 bg-white border hover:bg-blue-50"
-                              disabled={item.quantity >= item.stock}
-                              onClick={() =>
-                                mutate({
-                                  id: item.id,
-                                  quantity: item.quantity + 1,
-                                })
-                              }
-                            >
-                              <Plus className="h-4 w-4" />
-                            </Button>
-                          </>
-                        ) : (
-                          <span className="text-red-600 text-xs font-bold">
-                            Out of stock
-                          </span>
-                        )}
+                        <Button
+                          variant="outline"
+                          size="icon"
+                          className="h-7 w-7 bg-white border hover:bg-blue-50"
+                          disabled={item.quantity >= item.stock}
+                          onClick={() =>
+                            mutate({
+                              id: item.id,
+                              quantity: item.quantity + 1,
+                            })
+                          }
+                        >
+                          <Plus className="h-4 w-4" />
+                        </Button>
 
                         <Button
                           variant="ghost"

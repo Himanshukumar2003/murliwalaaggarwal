@@ -123,7 +123,6 @@ export default function CheckoutPage() {
     );
   }, [cartItems]);
   const estimatedTaxes = subtotal * 0;
-  const total = subtotal + estimatedTaxes;
 
   const onSubmit = (data) => {
     if (!user) {
@@ -158,6 +157,8 @@ export default function CheckoutPage() {
       },
     });
   };
+
+  console.log(cartItems);
 
   return (
     <div className="py-20 bg-blue-50">
@@ -274,6 +275,9 @@ export default function CheckoutPage() {
                           {item.title}
                         </p>
                         <p className="text-sm text-gray-500">
+                          price: {item.price}
+                        </p>
+                        <p className="text-sm text-gray-500">
                           Qty: {item.quantity}
                         </p>
                       </div>
@@ -289,9 +293,10 @@ export default function CheckoutPage() {
                   <span>Subtotal:</span>
                   <span>₹{subtotal.toFixed(2)}</span>
                 </div>
+
                 <div className="flex justify-between font-bold border-t border-gray-200 pt-4 mt-4 text-xl text-gray-900">
                   <span>Total:</span>
-                  <span>₹{total.toFixed(2)}</span>
+                  <span>₹{cartItems?.[0]?.total}</span>
                 </div>
               </div>
             </div>

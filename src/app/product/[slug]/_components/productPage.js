@@ -1,11 +1,21 @@
 "use client";
 
-import { Heart, Truck, RotateCcw, ChevronDown } from "lucide-react";
-import { Button } from "@/components/ui/button";
-import { useState } from "react";
+import {
+  Heart,
+  Truck,
+  RotateCcw,
+  ChevronDown,
+  Minus,
+  Plus,
+  Trash,
+} from "lucide-react";
+import { Button, buttonVariants } from "@/components/ui/button";
+import { useEffect, useMemo, useState } from "react";
 import Image from "next/image";
 import config from "@/config";
 import { AddToCartButtonProduct } from "@/components/cart-button";
+import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
+
 import { Badge } from "@/components/ui/badge";
 import {
   Select,
@@ -15,21 +25,111 @@ import {
   SelectLabel,
   SelectTrigger,
 } from "@/components/ui/select";
+import { useDispatch, useSelector } from "react-redux";
+import { useRouter } from "next/router";
+
+import { toggleCart, closeCart } from "@/lib/features/slice";
+import {
+  deleteCartItem,
+  getCartItems,
+  updateCartItem,
+} from "@/services/cart-services";
+import { useAuth } from "@/providers/auth-provider";
+import { toast, Toaster } from "sonner";
+import Link from "next/link";
 
 export default function ProductPage({ product }) {
-  const [quantity, setQuantity] = useState(1);
   const [selectedImage, setSelectedImage] = useState(0);
   const [isFavorite, setIsFavorite] = useState(false);
   const [bagPrint, setBagPrint] = useState(false);
+  console.log(bagPrint);
   const [bagPrintText, setBagPrintText] = useState("");
   const [frontPrint, setFrontPrint] = useState(false);
   const [frontPrintText, setFrontPrintText] = useState("");
-  const [frontPrintType, setFrontPrintType] = useState("");
+  const [frontPrintType, setFrontPrintType] = useState("paper_cut");
+  const [quantity, setQuantity] = useState(0); // Initial quantity
+  const queryClient = useQueryClient();
+  const dispatch = useDispatch();
+  const isCartOpen = useSelector((state) => state.cart.isCartOpen);
+  const [agreedToTerms, setAgreedToTerms] = useState(false);
 
+  const { mutate } = useMutation({
+    mutationFn: ({ id, ...data }) => updateCartItem(id, { ...data }),
+    onSuccess: () => {
+      queryClient.invalidateQueries(["cart"]);
+      queryClient.invalidateQueries(["cart-items"]);
+    },
+  });
+
+  const deleteMutation = useMutation({
+    mutationFn: ({ id }) => deleteCartItem(id),
+    onSuccess: () => {
+      queryClient.invalidateQueries(["cart"]);
+      queryClient.invalidateQueries(["cart-items"]);
+    },
+  });
+
+  const {
+    data: cartItems,
+    isLoading,
+    isError,
+    error,
+  } = useQuery({
+    queryKey: ["cart-items", isCartOpen],
+    queryFn: async () => {
+      const { data } = await getCartItems();
+      return data;
+    },
+  });
+
+  const isAddedToCart = useMemo(() => {
+    if (cartItems) {
+      return cartItems?.find((c) => c.product_id === product.id) ?? null;
+    }
+  }, [cartItems]);
+
+  console.log({ isAddedToCart });
+
+  // 🧠 Automatically handle out-of-stock and over-quantity items
+  useEffect(() => {
+    if (!cartItems?.length) return;
+
+    let removedCount = 0;
+    let updatedCount = 0;
+
+    cartItems.forEach((item) => {
+      // Remove out of stock
+      if (item.stock <= 0) {
+        deleteMutation.mutate({ id: item.id });
+        removedCount++;
+      }
+      // If quantity > stock, adjust to stock
+      else if (item.quantity > item.stock) {
+        mutate({ id: item.id, quantity: item.stock });
+        updatedCount++;
+      }
+    });
+
+    if (removedCount > 0) {
+      toast.error(
+        `${removedCount} item${
+          removedCount > 1 ? "s" : ""
+        } removed due to out of stock.`
+      );
+    }
+
+    if (updatedCount > 0) {
+      toast.success(
+        `${updatedCount} item${
+          updatedCount > 1 ? "s" : ""
+        } quantity adjusted to available stock.`
+      );
+    }
+  }, [cartItems]);
   // DEBUG Logs
-  console.log("Bag Print Text:", bagPrintText);
-  console.log("Front Print Text:", frontPrintText);
-  console.log("Front Print TYPE:", frontPrintType);
+  // console.log("Bag Print Text:", bagPrintText);
+  // console.log("Front Print Text:", frontPrintText);
+  // console.log("Front Print TYPE:", frontPrintType);
 
   // Dynamic sections
   const [selectedSections, setSelectedSections] = useState(
@@ -40,15 +140,49 @@ export default function ProductPage({ product }) {
   );
 
   const [openDropdown, setOpenDropdown] = useState(null);
-  console.log("Selected Sections:", selectedSections);
+  // console.log("Selected Sections:", selectedSections);
 
   // Dynamic main images
   const pictures =
     product.pictures?.map((p) => `${config.file_base}${p}`) || [];
 
+  // console.log(product);
+
   const handleQuantityChange = (change) => {
-    const newQuantity = quantity + change;
-    if (newQuantity > 0) setQuantity(newQuantity);
+    setQuantity((prevQuantity) => {
+      const newQuantity = prevQuantity + change;
+      if (newQuantity >= 1 && newQuantity <= product.stock) {
+        return newQuantity;
+      }
+      return prevQuantity; // Return previous quantity if the new one is out of bounds
+    });
+  };
+
+  const addToCartMutation = useMutation({
+    mutationFn: (data) => addToCart(data),
+    onSuccess: () => {
+      queryClient.invalidateQueries(["cart"]);
+      toast.success("Item added to cart!");
+    },
+    onError: () => {
+      toast.error("Error adding item to cart.");
+    },
+  });
+
+  const handleAddToCart = () => {
+    addToCartMutation.mutate({
+      productId: product.id,
+      quantity,
+      // You can also include any additional data like sections, print info, etc.
+      sections: product.selectedSections,
+      bag_print: product.bagPrint ? { text: product.bagPrintText || "" } : null,
+      print_sticker_on_box: product.frontPrint
+        ? {
+            text: product.frontPrintText,
+            print_type: product.frontPrintType,
+          }
+        : null,
+    });
   };
 
   return (
@@ -59,7 +193,7 @@ export default function ProductPage({ product }) {
           <div className="flex flex-col gap-4 sticky top-[120px]">
             <div className="relative bg-muted rounded-lg overflow-hidden aspect-square flex items-center justify-center">
               <Image
-                src={pictures[selectedImage]}
+                src={pictures[selectedImage] || "/placeholder.svg"}
                 alt="product-main-img"
                 width={500}
                 height={500}
@@ -81,7 +215,7 @@ export default function ProductPage({ product }) {
                   }`}
                 >
                   <Image
-                    src={thumb}
+                    src={thumb || "/placeholder.svg"}
                     alt="thumb"
                     width={80}
                     height={80}
@@ -222,75 +356,92 @@ export default function ProductPage({ product }) {
             </div>
 
             {/* ================= BAG PRINT ================= */}
-            <div className="space-y-3 bg-amber-50 p-5 rounded-2xl border-2 border-amber-200">
-              <label className="flex items-center gap-3 font-semibold">
-                <input
-                  type="checkbox"
-                  className="w-5 h-5"
-                  checked={bagPrint}
-                  onChange={(e) => setBagPrint(e.target.checked)}
-                />
-                🎁 Bag Print
-              </label>
 
-              {bagPrint && (
-                <textarea
-                  rows={3}
-                  value={bagPrintText}
-                  onChange={(e) => setBagPrintText(e.target.value)}
-                  className="w-full p-4 border rounded-xl bg-white"
-                  placeholder="Enter bag print text..."
-                />
-              )}
-            </div>
+            {product.have_sticker_options && (
+              <>
+                {" "}
+                <div className="space-y-3 bg-amber-50 p-5 rounded-2xl border-2 border-amber-200">
+                  <label className="flex items-center gap-3 font-semibold">
+                    <input
+                      type="checkbox"
+                      className="w-5 h-5"
+                      checked={bagPrint}
+                      onChange={(e) => setBagPrint(e.target.checked)}
+                    />
+                    🎁 Bag Print
+                  </label>
 
-            {/* ================= FRONT PRINT ================= */}
-            <div className="space-y-3 bg-blue-50 p-5 rounded-2xl border-2 border-blue-200">
-              <label className="flex items-center gap-3 font-semibold">
-                <input
-                  type="checkbox"
-                  className="w-5 h-5"
-                  checked={frontPrint}
-                  onChange={(e) => setFrontPrint(e.target.checked)}
-                />
-                ✏️ Print Sticker on Box
-              </label>
+                  {bagPrint && (
+                    <textarea
+                      rows={3}
+                      value={bagPrintText}
+                      onChange={(e) => setBagPrintText(e.target.value)}
+                      className="w-full p-4 border rounded-xl bg-white"
+                      placeholder="Enter bag print text..."
+                    />
+                  )}
+                </div>
+                {/* ================= FRONT PRINT ================= */}
+                <div className="space-y-3 bg-blue-50 p-5 rounded-2xl border-2 border-blue-200">
+                  <label className="flex items-center gap-3 font-semibold">
+                    <input
+                      type="checkbox"
+                      className="w-5 h-5"
+                      checked={frontPrint}
+                      onChange={(e) => setFrontPrint(e.target.checked)}
+                    />
+                    ✏️ Print Sticker on Box
+                  </label>
 
-              {frontPrint && (
-                <>
-                  <textarea
-                    rows={3}
-                    value={frontPrintText}
-                    onChange={(e) => setFrontPrintText(e.target.value)}
-                    className="w-full p-4 border rounded-xl bg-white"
-                    placeholder="Enter front print text..."
-                  />
+                  {frontPrint && (
+                    <>
+                      <textarea
+                        rows={3}
+                        value={frontPrintText}
+                        onChange={(e) => setFrontPrintText(e.target.value)}
+                        className="w-full p-4 border rounded-xl bg-white"
+                        placeholder="Enter front print text..."
+                      />
 
-                  <Select onValueChange={(value) => setFrontPrintType(value)}>
-                    <SelectTrigger placeholder="Select Print Type">
-                      Select Print Type
-                    </SelectTrigger>
-                    <SelectContent>
-                      <SelectGroup>
-                        <SelectLabel>Print Type</SelectLabel>
-                        <SelectItem value="Birthday">Birthday</SelectItem>
-                        <SelectItem value="Anniversary">Anniversary</SelectItem>
-                        <SelectItem value="Custom">Custom</SelectItem>
-                      </SelectGroup>
-                    </SelectContent>
-                  </Select>
-                </>
-              )}
-            </div>
+                      <Select
+                        onValueChange={(value) => setFrontPrintType(value)}
+                        value={frontPrintType}
+                      >
+                        <SelectTrigger placeholder="Select Print Type">
+                          {frontPrintType === "paper_cut"
+                            ? "Paper Cut"
+                            : frontPrintType === "laser_cut"
+                            ? "Laser Cut"
+                            : "Select Print Type"}
+                        </SelectTrigger>
+                        <SelectContent>
+                          <SelectGroup>
+                            <SelectLabel>Print Type</SelectLabel>
+                            <SelectItem value="paper_cut">
+                              Paper Cut (+₹10)
+                            </SelectItem>
+                            <SelectItem value="laser_cut">
+                              Laser Cut (+₹25)
+                            </SelectItem>
+                          </SelectGroup>
+                        </SelectContent>
+                      </Select>
+                    </>
+                  )}
+                </div>{" "}
+              </>
+            )}
 
             {/* ================= ADD TO CART ================= */}
-            <div className="flex gap-4 flex-col sm:flex-row mt-4">
+
+            {/* <div className="flex gap-4 flex-col sm:flex-row mt-4">
               <div className="flex items-center border border-border rounded-lg">
                 <button
-                  onClick={() => handleQuantityChange(-1)}
+                  onClick={() => handleQuantityChange(-1)} // Decrease quantity
                   className="px-4 py-3 hover:bg-muted"
+                  disabled={quantity <= 1} // Disable if quantity is 1
                 >
-                  –
+                  <Minus className="h-5 w-5" />
                 </button>
 
                 <input
@@ -301,26 +452,89 @@ export default function ProductPage({ product }) {
                 />
 
                 <button
-                  onClick={() => handleQuantityChange(1)}
+                  onClick={() => handleQuantityChange(1)} // Increase quantity
                   className="px-4 py-3 hover:bg-muted"
+                  disabled={quantity >= product.stock} // Disable if quantity exceeds stock
                 >
-                  +
+                  <Plus className="h-5 w-5" />
                 </button>
               </div>
 
-              <AddToCartButtonProduct
-                product={{ product_id: product.id }}
-                sections={selectedSections}
-                bag_print={{ text: bagPrintText }}
-                print_sticker_on_box={{
-                  text: frontPrintText,
-                  print_type: frontPrintType,
-                }}
-                slug={product.slug}
-              />
-            </div>
+              <Button
+                className="flex-1 bg-primary text-white hover:bg-primary/90 transition"
+                onClick={handleAddToCart}
+                disabled={quantity <= 0 || quantity > product.stock}
+              >
+                Add to Cart
+              </Button>
+            </div> */}
 
-            <Button className="w-full py-6 font-semibold">BUY IT NOW</Button>
+            <div className="space-y-4">
+              {isAddedToCart ? (
+                <div className="flex gap-4 items-center">
+                  {/* Quantity Counter */}
+                  <div className="flex items-center border border-border rounded-lg">
+                    {/* Decrease */}
+                    <button
+                      className="px-4 py-3 hover:bg-muted disabled:opacity-50"
+                      disabled={isAddedToCart.quantity <= 1}
+                      onClick={() =>
+                        mutate({
+                          id: isAddedToCart.id,
+                          quantity: isAddedToCart.quantity - 1,
+                        })
+                      }
+                    >
+                      <Minus className="h-5 w-5" />
+                    </button>
+
+                    {/* Current Qty */}
+                    <input
+                      type="number"
+                      value={isAddedToCart.quantity}
+                      readOnly
+                      className="w-16 text-center border-l border-r py-3 bg-background"
+                    />
+
+                    {/* Increase */}
+                    <button
+                      className="px-4 py-3 hover:bg-muted disabled:opacity-50"
+                      disabled={isAddedToCart.quantity >= product.stock}
+                      onClick={() =>
+                        mutate({
+                          id: isAddedToCart.id,
+                          quantity: isAddedToCart.quantity + 1,
+                        })
+                      }
+                    >
+                      <Plus className="h-5 w-5" />
+                    </button>
+                  </div>
+
+                  {/* Checkout Button */}
+                  <Link
+                    className="py-3 px-3 uppercase bg-transparent border border-primary text-primary leading-normal text-center text-md font-semibold tracking-[0.32px] transition-all duration-500 ease-[cubic-bezier(0,.97,.43,1)] hover:border-primary hover:text-white hover:bg-primary"
+                    href="/checkout"
+                  >
+                    Checkout
+                  </Link>
+                </div>
+              ) : (
+                <AddToCartButtonProduct
+                  product={{ product_id: product.id }}
+                  sections={selectedSections}
+                  bag_print={{ text: bagPrintText }}
+                  print_sticker_on_box={{
+                    text: frontPrintText,
+                    print_type: frontPrintType,
+                  }}
+                  front_print={{
+                    text: frontPrintText,
+                    print_type: frontPrintType,
+                  }}
+                />
+              )}
+            </div>
 
             {/* Delivery Info */}
             <div className="border-t border-border pt-6 space-y-4">
