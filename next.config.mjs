@@ -15,6 +15,12 @@ const nextConfig = {
         hostname: "www.facebook.com",
         pathname: "/**",
       },
+
+      {
+        protocol: "https",
+        hostname: "murliwalaapi.bedemo.in",
+        port: "",
+      },
     ],
   },
 };
