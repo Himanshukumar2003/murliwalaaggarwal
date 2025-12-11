@@ -18,7 +18,7 @@ const nextConfig = {
 
       {
         protocol: "https",
-        hostname: "murliwalaapi.bedemo.in",
+        hostname: "murliwalaapi.bwdemo.in",
         port: "",
       },
     ],
