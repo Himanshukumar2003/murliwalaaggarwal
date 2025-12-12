@@ -39,7 +39,7 @@ export default function Header() {
   const [openMenu, setOpenMenu] = useState(false);
 
   return (
-    <header className="fixed top-0 left-0 right-0 z-[9999] bg-white/50 backdrop-blur-lg border-b">
+    <header className="fixed top-0 left-0 right-0 z-[9999] bg-[#ffffffcc] backdrop-blur-2xl border-b  saturate-180">
       <div className="max-w-7xl mx-auto px-6 py-4 flex items-center justify-between">
         {/* LEFT MENU (Desktop) */}
         <nav className="hidden md:flex items-center gap-8">
