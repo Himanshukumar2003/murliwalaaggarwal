@@ -27,7 +27,14 @@ export function ContactForm() {
   };
 
   return (
-    <section className="bg-[url('/img/bg.webp')] bg-cover bg-center py-8 px-4 md:px-8">
+    <section
+      className="bg-secondary text-[#d4c5b9] py-16 px-8"
+      style={{
+        backgroundImage: "url('/img/bg-3.png')",
+        backgroundSize: "cover",
+        backgroundPosition: "center",
+      }}
+    >
       <div className="max-w-7xl mx-auto">
         <div className="grid lg:grid-cols-2 gap-12 items-center">
           {/* Left side - Message */}

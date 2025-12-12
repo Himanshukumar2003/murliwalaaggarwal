@@ -129,7 +129,6 @@ export default function Footer() {
               <div className="text-center text-[#f5e6e0] font-serif text-3xl font-bold">
                 <Image
                   src="/logo.png"
-                  className="w-100"
                   width={200}
                   height={200}
                   className="w-[200px]"

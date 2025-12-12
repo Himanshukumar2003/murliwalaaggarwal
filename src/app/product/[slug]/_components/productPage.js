@@ -42,7 +42,6 @@ export default function ProductPage({ product }) {
   const [selectedImage, setSelectedImage] = useState(0);
   const [isFavorite, setIsFavorite] = useState(false);
   const [bagPrint, setBagPrint] = useState(false);
-  console.log(bagPrint);
   const [bagPrintText, setBagPrintText] = useState("");
   const [frontPrint, setFrontPrint] = useState(false);
   const [frontPrintText, setFrontPrintText] = useState("");
@@ -52,6 +51,11 @@ export default function ProductPage({ product }) {
   const dispatch = useDispatch();
   const isCartOpen = useSelector((state) => state.cart.isCartOpen);
   const [agreedToTerms, setAgreedToTerms] = useState(false);
+
+  console.log(bagPrintText);
+  console.log(bagPrintText);
+  console.log(frontPrintType);
+  console.log(frontPrint);
 
   const { mutate } = useMutation({
     mutationFn: ({ id, ...data }) => updateCartItem(id, { ...data }),
@@ -81,6 +85,8 @@ export default function ProductPage({ product }) {
       return data;
     },
   });
+
+  console.log("CART", cartItems);
 
   const isAddedToCart = useMemo(() => {
     if (cartItems) {
@@ -145,45 +151,6 @@ export default function ProductPage({ product }) {
   // Dynamic main images
   const pictures =
     product.pictures?.map((p) => `${config.file_base}${p}`) || [];
-
-  // console.log(product);
-
-  const handleQuantityChange = (change) => {
-    setQuantity((prevQuantity) => {
-      const newQuantity = prevQuantity + change;
-      if (newQuantity >= 1 && newQuantity <= product.stock) {
-        return newQuantity;
-      }
-      return prevQuantity; // Return previous quantity if the new one is out of bounds
-    });
-  };
-
-  const addToCartMutation = useMutation({
-    mutationFn: (data) => addToCart(data),
-    onSuccess: () => {
-      queryClient.invalidateQueries(["cart"]);
-      toast.success("Item added to cart!");
-    },
-    onError: () => {
-      toast.error("Error adding item to cart.");
-    },
-  });
-
-  const handleAddToCart = () => {
-    addToCartMutation.mutate({
-      productId: product.id,
-      quantity,
-      // You can also include any additional data like sections, print info, etc.
-      sections: product.selectedSections,
-      bag_print: product.bagPrint ? { text: product.bagPrintText || "" } : null,
-      print_sticker_on_box: product.frontPrint
-        ? {
-            text: product.frontPrintText,
-            print_type: product.frontPrintType,
-          }
-        : null,
-    });
-  };
 
   return (
     <main className="min-h-screen bg-background pt-20">
@@ -521,17 +488,17 @@ export default function ProductPage({ product }) {
                 </div>
               ) : (
                 <AddToCartButtonProduct
-                  product={{ product_id: product.id }}
+                  product={product}
                   sections={selectedSections}
-                  bag_print={{ text: bagPrintText }}
-                  print_sticker_on_box={{
-                    text: frontPrintText,
-                    print_type: frontPrintType,
-                  }}
-                  front_print={{
-                    text: frontPrintText,
-                    print_type: frontPrintType,
-                  }}
+                  bag_print={bagPrint ? { text: bagPrintText || null } : null}
+                  print_sticker_on_box={
+                    frontPrint
+                      ? {
+                          text: frontPrintText || null,
+                          print_type: frontPrintType,
+                        }
+                      : null
+                  }
                 />
               )}
             </div>

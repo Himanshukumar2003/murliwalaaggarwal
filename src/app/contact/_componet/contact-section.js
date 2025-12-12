@@ -7,7 +7,7 @@ export function ContactSection() {
       <div className="max-w-7xl mx-auto grid lg:grid-cols-2 gap-12">
         {/* LEFT SIDE */}
         <div>
-          <p className="text-lg uppercase tracking-wide text-blue-500 mb-3">
+          <p className="text-lg uppercase tracking-wide text-green-500 mb-3">
             Connect With Us
           </p>
 
@@ -100,11 +100,11 @@ export function ContactSection() {
         {/* RIGHT IMAGE */}
         <div className="h-full flex flex-col justify-center items-center">
           <Image
-            src="/images/product-img.png"
+            src="/img/1.jpg"
             alt="BDS Education"
             width={500}
             height={500}
-            className="w-full mix-blend-multiply"
+            className="w-full mix-blend-multiply   rounded-lg"
           />
         </div>
       </div>

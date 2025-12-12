@@ -9,9 +9,9 @@ export function Breadcrumb({ items, title, className = "" }) {
   return (
     <div className={`relative w-full ${className}`}>
       {/* Background Image */}
-      <div className="relative w-full h-[260px]  overflow-hidden pt-[40px]">
+      <div className="relative w-full h-[300px]  overflow-hidden ">
         <Image
-          src="/images/hero-2.png"
+          src="/img/banner.png"
           alt={title}
           height={500}
           width={500}
@@ -22,7 +22,7 @@ export function Breadcrumb({ items, title, className = "" }) {
       </div>
 
       {/* Content */}
-      <div className="absolute inset-0 flex   flex-col items-center justify-center text-white">
+      <div className="absolute inset-0 flex pt-[100px]   flex-col items-center justify-center text-white">
         <h1 className="text-3xl md:text-4xl text-center max-w-7xl font-bold mb-4">
           {title}
         </h1>
@@ -30,7 +30,7 @@ export function Breadcrumb({ items, title, className = "" }) {
         <nav className="flex flex-wrap justify-center items-center space-x-2">
           <Link
             href="/"
-            className="flex items-center hover:text-blue-500 text-lg transition-colors"
+            className="flex items-center hover:text-green-500 text-lg transition-colors"
           >
             <Home className="h-4 w-4 mr-1" />
             Home
@@ -40,11 +40,11 @@ export function Breadcrumb({ items, title, className = "" }) {
             <React.Fragment key={index}>
               <ChevronRight className="h-4 w-4 text-gray-300 text-lg" />
               {item.isCurrent ? (
-                <span className="text-blue-500 font-medium">{item.label}</span>
+                <span className="text-green-500 font-medium">{item.label}</span>
               ) : (
                 <a
                   href={item.href}
-                  className="hover:text-blue-500 text-lg transition-colors"
+                  className="hover:text-green-500 text-lg transition-colors"
                 >
                   {item.label}
                 </a>

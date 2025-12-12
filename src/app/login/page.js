@@ -57,7 +57,7 @@ export default function LoginPage() {
   };
 
   return (
-    <div className="flex` bg-blue-50 overflow-hidden">
+    <div className="flex min-h-100vh bg-green-50 overflow-hidden">
       {/* Left Side - Login Form */}
       <div className="flex-1 flex items-center justify-center p-8 bg-background">
         <div className="w-full max-w-xl space-y-6">
@@ -103,7 +103,7 @@ export default function LoginPage() {
                     <Label htmlFor="password">Password</Label>
                     <Link
                       href="/forgot-password"
-                      className="text-sm text-blue-600 hover:text-blue-500"
+                      className="text-sm text-green-600 hover:text-green-500"
                     >
                       Forgot password?
                     </Link>
@@ -159,7 +159,7 @@ export default function LoginPage() {
               {"Don't have an account? "}
               <Link
                 href="/signup"
-                className="font-medium text-blue-600 hover:text-blue-500"
+                className="font-medium text-green-600 hover:text-green-500"
               >
                 Sign up
               </Link>
@@ -169,7 +169,7 @@ export default function LoginPage() {
       </div>
 
       {/* Right Side - Educational Content */}
-      <div className="hidden flex-1 bg-gradient-to-r from-blue-500 to-blue-700 education-pattern lg:flex items-center justify-center p-8 text-white">
+      <div className="hidden min-h-[100vh] flex-1 bg-gradient-to-r from-green-500 to-green-700 education-pattern lg:flex items-center justify-center p-8 text-white">
         <div className="max-w-lg space-y-8">
           <div className="text-center space-y-4">
             <div className="inline-flex items-center justify-center w-16 h-16 bg-white/20 rounded-full backdrop-blur-sm">
@@ -178,7 +178,7 @@ export default function LoginPage() {
             <h2 className="text-3xl font-bold text-balance">
               Transform Education with Technology
             </h2>
-            <p className="text-blue-100 text-lg text-balance">
+            <p className="text-green-100 text-lg text-balance">
               Helping schools & colleges establish skill development labs to
               teach coding, AI, robotics & more
             </p>
@@ -191,7 +191,7 @@ export default function LoginPage() {
               </div>
               <div>
                 <h3 className="font-semibold text-lg">Faculty Training</h3>
-                <p className="text-blue-100">
+                <p className="text-green-100">
                   Online faculty training and dedicated access for seeking
                   clarifications
                 </p>
@@ -204,7 +204,7 @@ export default function LoginPage() {
               </div>
               <div>
                 <h3 className="font-semibold text-lg">Grade-wise Books</h3>
-                <p className="text-blue-100">
+                <p className="text-green-100">
                   Comprehensive books for students from Grade 1 to 12 following
                   TIY approach
                 </p>
@@ -217,7 +217,7 @@ export default function LoginPage() {
               </div>
               <div>
                 <h3 className="font-semibold text-lg">Skill Development</h3>
-                <p className="text-blue-100">
+                <p className="text-green-100">
                   Wide usability span products with multi-language software
                   support
                 </p>

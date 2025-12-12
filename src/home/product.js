@@ -34,17 +34,6 @@ export default function ProductSection() {
     setFavorites(newFavorites);
   };
 
-  const addToCart = (id) => {
-    const newCart = new Set(cart);
-    newCart.add(id);
-    setCart(newCart);
-    setTimeout(() => {
-      const updatedCart = new Set(cart);
-      updatedCart.delete(id);
-      setCart(updatedCart);
-    }, 2000);
-  };
-
   return (
     <section className="py-20 px-6 ">
       <div className="max-w-7xl mx-auto">

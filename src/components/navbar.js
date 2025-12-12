@@ -52,23 +52,24 @@ export default function Header() {
           >
             HOME
           </Link>
-          <Link
-            href="/product"
-            className="text-sm font-semibold text-[16px] text-neutral-900 hover:text-neutral-600 transition"
-          >
-            MENU
-          </Link>
+
           <a
-            href="#"
+            href="/about"
             className="text-sm font-semibold text-[16px] text-neutral-900 hover:text-neutral-600 transition"
           >
-            SHOP
+            About
           </a>
           <a
-            href="#"
+            href="/Sweets"
             className="text-sm font-semibold text-[16px] text-neutral-900 hover:text-neutral-600 transition"
           >
-            PAGES
+            Our Sweets
+          </a>
+          <a
+            href="/contact"
+            className="text-sm font-semibold text-[16px] text-neutral-900 hover:text-neutral-600 transition"
+          >
+            Contact
           </a>
         </nav>
 
@@ -80,7 +81,7 @@ export default function Header() {
               width={500}
               height={100}
               src="/logo.png"
-              className="w-[300px] h-auto"
+              className="w-[180px] h-auto"
             ></Image>
           </div>
         </div>
@@ -115,18 +116,12 @@ export default function Header() {
           )}
           {!user && (
             <>
-              <Link href="/login" className="btn flex gap-2 items-center">
+              <Link href="/login" className="btn !mt-0 flex gap-2 items-center">
                 Login
               </Link>
             </>
           )}
 
-          <Button
-            variant="outline"
-            className="relative    rounded-none   min-h-[50px] uppercase bg-transparent border border-primary text-primary  leading-normal inline-block text-center text-md font-semibold tracking-[0.32px] transition-all duration-500 ease-[cubic-bezier(0,.97,.43,1)] hover:border-primary hover:text-white hover:bg-primary"
-          >
-            BOOK A TABLE
-          </Button>
           <button className="p-2 hover:bg-neutral-100 rounded-lg transition">
             <Search size={20} className="text-neutral-900" />
           </button>

@@ -46,6 +46,7 @@ export default function OrderDetailsPage({}) {
     queryFn: () => getOrder(id),
   });
 
+  console.log("orders:", data);
   if (isLoading) return <Loader></Loader>;
   if (isError) return <p className="p-6 text-red-500">{error.message}</p>;
 
@@ -93,10 +94,8 @@ export default function OrderDetailsPage({}) {
                   })}
                 </div>
               </div>
-              {currentStatus == "Canceled" ? (
-                <></>
-              ) : (
-                <div className="flex flex-col sm:flex-row gap-3">
+              {currentStatus == "Canceled" ? <></> : null}
+              {/* <div className="flex flex-col sm:flex-row gap-3">
                   <button
                     onClick={handleDownloadInvoice}
                     className="relative    rounded-none  items-center  !flex gap-2 px-4  min-h-[50px] uppercase bg-transparent border border-primary text-primary  leading-normal inline-block text-center text-md font-semibold tracking-[0.32px] transition-all duration-500 ease-[cubic-bezier(0,.97,.43,1)] hover:border-primary hover:text-white hover:bg-primary"
@@ -104,8 +103,7 @@ export default function OrderDetailsPage({}) {
                     <Download className="w-4 h-4 mr-2" />
                     Download Invoice
                   </button>
-                </div>
-              )}
+                </div> */}
             </div>
           )}
 
@@ -203,43 +201,111 @@ export default function OrderDetailsPage({}) {
                 <Package className="w-5 h-5 mr-3 text-green-600" />
                 Order Items
               </h2>
-              <div className="space-y-4">
-                {items.map((item) => (
-                  <div
-                    key={item.id}
-                    className="flex items-center p-4 bg-gray-50 rounded-xl hover:bg-gray-100 transition-colors duration-200"
-                  >
-                    <Image
-                      width={200}
-                      height={200}
-                      src={`${process.env.NEXT_PUBLIC_FILE_BASE}${item.pictures[0]}`}
-                      alt={item.title}
-                      className="w-16 h-16 object-cover rounded-lg mr-4 shadow-sm"
-                    />
-                    <div className="flex-1">
-                      <h3 className="font-medium text-gray-900">
-                        {item.title}
-                      </h3>
-                      <p className="text-sm text-gray-600">
-                        Quantity: {item.quantity}
-                      </p>
+              <div>
+                <div className="space-y-4">
+                  {items.map((item) => (
+                    <div
+                      key={item.id}
+                      className="flex flex-col  gap-4 p-4 bg-white rounded-xl shadow-sm border border-gray-100 hover:shadow-md transition-all duration-300"
+                    >
+                      <div className="flex gap-10">
+                        <div className="">
+                          <Image
+                            width={200}
+                            height={200}
+                            src={`${process.env.NEXT_PUBLIC_FILE_BASE}${item.pictures[0]}`}
+                            alt={item.title}
+                            className="w-20 h-20 md:w-24 md:h-24 object-cover rounded-lg shadow-sm border"
+                          />
+                        </div>
+                        <div>
+                          <h3 className="font-semibold text-gray-900 text-lg">
+                            {item.title}
+                          </h3>
+                          <p className="text-sm text-gray-600 mt-1">
+                            <span className="font-medium">Quantity:</span>{" "}
+                            {item.quantity}
+                          </p>
+                          <div>
+                            <p className="text-lg font-semibold text-green-500 italic">
+                              ₹
+                              {(
+                                Number(item.price) * item.quantity
+                              ).toLocaleString()}
+                            </p>
+                            <p className="text-sm text-gray-600">
+                              ₹{Number(item.price).toLocaleString()} each
+                            </p>
+                          </div>
+                        </div>
+                      </div>
+
+                      {/* Content Section */}
+                      <div className="flex-1 w-full">
+                        {/* Sections */}
+                        {item.sections?.length > 0 && (
+                          <div className="mt-4">
+                            <p className="text-xs font-semibold text-gray-700 uppercase mb-2">
+                              Box Sections
+                            </p>
+                            <div className="flex justify-start  gap-5 flex-wrap">
+                              {item.sections.map((section, idx) => (
+                                <div
+                                  key={idx}
+                                  className="bg-primary/10 border-primary border-1  rounded-lg flex gap-2  min-w-[120px] px-4 py-1 border text-xs"
+                                >
+                                  <p className="text-primary font-medium">
+                                    Section {section.section}
+                                  </p>{" "}
+                                  :
+                                  <p className="text-gray-600">
+                                    {section.sweet}
+                                  </p>
+                                </div>
+                              ))}
+                            </div>
+                          </div>
+                        )}
+
+                        <div className="grid grid-cols-1 lg:grid-cols-2 gap-5">
+                          {/* Sticker Print */}
+                          {item.print_sticker_on_box && (
+                            <div className="mt-4 bg-blue-50 border border-blue-200 rounded-lg p-3">
+                              <p className="text-xs font-semibold text-blue-700 uppercase mb-1">
+                                Print Sticker on Box
+                              </p>
+                              <p className="text-sm font-medium text-gray-900">
+                                {item.print_sticker_on_box.text}
+                              </p>
+                              <p className="text-xs text-gray-600 mt-1">
+                                Print Type:{" "}
+                                <span className="font-medium capitalize">
+                                  {item.print_sticker_on_box.print_type.replace(
+                                    "_",
+                                    " "
+                                  )}
+                                </span>
+                              </p>
+                            </div>
+                          )}
+
+                          {item.bag_print?.text && (
+                            <div className="mt-4 bg-green-50 border border-green-200 rounded-lg p-3">
+                              <p className="text-xs font-semibold text-green-700 uppercase mb-1">
+                                Bag Print
+                              </p>
+                              <p className="text-sm font-medium text-gray-900">
+                                {item.bag_print.text}
+                              </p>
+                            </div>
+                          )}
+                        </div>
+                      </div>
+
+                      {/* Price Section */}
                     </div>
-                    <div className="text-right">
-                      <p className="font-semibold text-gray-900">
-                        ₹
-                        {(
-                          parseFloat(item.price) * item.quantity
-                        ).toLocaleString()}
-                      </p>
-                      <p className="text-sm text-gray-600">
-                        ₹{parseFloat(item.price).toLocaleString()} each
-                      </p>
-                      {/* <div className="bg-green-200 rounded-[20px] px-3 py-1 text-xs">
-                        {item.status}
-                      </div> */}
-                    </div>
-                  </div>
-                ))}
+                  ))}
+                </div>
               </div>
             </div>
 

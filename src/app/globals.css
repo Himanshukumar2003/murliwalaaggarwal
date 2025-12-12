@@ -145,3 +145,21 @@
 h1, h2, h3, h4, h5 {
   font-family: var(--font-brandon);
 }
+
+
+.btn {
+  margin-top: 1.5rem;            /* mt-6 */
+  font-family: var(--font-main); /* font-font-main */
+  display: inline-block;         /* inline-block */
+  padding: 0.75rem 2rem;         /* py-3 px-8 */
+  font-size: 1.125rem;           /* text-lg */
+  font-weight: 600;              /* font-semibold */
+  color: white;                /* text-black */
+  background-color: var(--primary);     /* bg-[#FFFFFF] */
+  transition: background-color 0.3s ease, color 0.3s ease; /* transition-colors */
+}
+
+.btn:hover {
+  background-color: var(--secondary); /* hover:bg-primary */
+  color: #ffffff;                   /* hover:text-white */
+}

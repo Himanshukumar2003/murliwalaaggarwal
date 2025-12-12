@@ -20,6 +20,7 @@ export const AddToCartButtonProduct = ({
   const { user } = useAuth();
   const router = useRouter();
   const queryClient = useQueryClient();
+  console.log("hero:", sections);
 
   const { mutate, isPending, isError, error } = useMutation({
     mutationFn: addToCart,
@@ -47,7 +48,6 @@ export const AddToCartButtonProduct = ({
 
     mutate(cartData);
   };
-
   return (
     <button
       onClick={handleAddToCart}

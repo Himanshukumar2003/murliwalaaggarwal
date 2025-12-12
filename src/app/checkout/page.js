@@ -220,7 +220,9 @@ export default function CheckoutPage() {
                 </div>
                 <div className="mt-4">
                   <Dialog>
-                    <DialogTrigger className="btn">Add address</DialogTrigger>
+                    <DialogTrigger className="!bg-transparent  !text-black border border-primary btn">
+                      Add address
+                    </DialogTrigger>
                     <DialogContent>
                       <DialogHeader>
                         <DialogTitle className={"sr-only"}>
@@ -237,9 +239,9 @@ export default function CheckoutPage() {
                   </Dialog>
                 </div>
 
-                <Button type="submit" className="btn mt-5">
+                <button type="submit" className="btn">
                   Checkout
-                </Button>
+                </button>
               </div>
             </div>
 
