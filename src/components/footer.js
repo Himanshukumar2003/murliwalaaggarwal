@@ -13,7 +13,7 @@ export default function Footer() {
     >
       {/* Top Section */}
       <div className="  container px-4">
-        <div className="grid grid-cols-3 gap-8 mb-12 ">
+        <div className="grid  lg:grid-cols-3 gap-8 mb-12 ">
           {/* Contact Us */}
           <div className="text-center">
             <h3 className="text-[#f5e6e0] font-semibold tracking-widest text-sm mb-4">
@@ -139,9 +139,14 @@ export default function Footer() {
 
             {/* Copyright */}
             <div className="text-sm text-center md:text-right">
-              Copyright © 2025{" "}
-              <span className="text-[#d4b8aa]">Sugar Town</span>. All Rights
-              Reserved.
+              murliwalaaggarwal | Design & Developed By{" "}
+              <a
+                href="https://brandingwaale.com/"
+                target="_black"
+                className="text-white  decoration-none"
+              >
+                Brandingwaale Webtech
+              </a>
             </div>
           </div>
         </div>

@@ -1,17 +1,10 @@
 "use client";
 
-import { Search, ShoppingCart, Menu } from "lucide-react";
+import { Search, ShoppingCart, Menu, X } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import Image from "next/image";
 import Link from "next/link";
 import { useAuth, handleLogout } from "@/providers/auth-provider";
-import {
-  ChevronDown,
-  X,
-  LogIn,
-  ChevronDownIcon,
-  MoreHorizontalIcon,
-} from "lucide-react";
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -22,11 +15,13 @@ import { useDispatch, useSelector } from "react-redux";
 import { toggleCart } from "@/lib/features/slice";
 import { useQuery } from "@tanstack/react-query";
 import { getCartItems } from "@/services/cart-services";
-import { useMemo } from "react";
+import { useMemo, useState } from "react";
+
 export default function Header() {
   const dispatch = useDispatch();
   const { user } = useAuth();
   const isCartOpen = useSelector((state) => state.cart.isCartOpen);
+
   const { data: cartData } = useQuery({
     queryKey: ["cart", isCartOpen],
     queryFn: async () => {
@@ -41,97 +36,173 @@ export default function Header() {
     [cartData]
   );
 
+  const [openMenu, setOpenMenu] = useState(false);
+
   return (
-    <header className=" fixed top-0 left-0 right-0 z-99  mx-automt-3 bg-white/50  border border-white  mb-0 ml-0 mr-0 pt-0 pb-0 pl-3.5 pr-3.5 backdrop-blur-lg">
+    <header className="fixed top-0 left-0 right-0 z-[9999] bg-white/50 backdrop-blur-lg border-b">
       <div className="max-w-7xl mx-auto px-6 py-4 flex items-center justify-between">
-        {/* Left Navigation */}
-        <nav className="flex items-center gap-8">
+        {/* LEFT MENU (Desktop) */}
+        <nav className="hidden md:flex items-center gap-8">
           <Link
             href="/"
-            className="text-sm  font-semibold text-[16px] text-neutral-900 hover:text-neutral-600 transition"
+            className="text-[16px] font-semibold hover:text-neutral-600"
           >
             HOME
           </Link>
-
-          <a
+          <Link
             href="/about"
-            className="text-sm font-semibold text-[16px] text-neutral-900 hover:text-neutral-600 transition"
+            className="text-[16px] font-semibold hover:text-neutral-600"
           >
             About
-          </a>
-          <a
+          </Link>
+          <Link
             href="/Sweets"
-            className="text-sm font-semibold text-[16px] text-neutral-900 hover:text-neutral-600 transition"
+            className="text-[16px] font-semibold hover:text-neutral-600"
           >
             Our Sweets
-          </a>
-          <a
+          </Link>
+          <Link
             href="/contact"
-            className="text-sm font-semibold text-[16px] text-neutral-900 hover:text-neutral-600 transition"
+            className="text-[16px] font-semibold hover:text-neutral-600"
           >
             Contact
-          </a>
+          </Link>
         </nav>
 
-        {/* Center Logo */}
+        {/* MOBILE MENU BUTTON */}
+        <button
+          className="md:hidden p-2 hover:bg-neutral-100 rounded-lg transition"
+          onClick={() => setOpenMenu(!openMenu)}
+        >
+          {openMenu ? <X size={24} /> : <Menu size={24} />}
+        </button>
+
+        {/* CENTER LOGO */}
         <div className="absolute left-1/2 transform -translate-x-1/2">
-          <div className="text-center">
-            <Image
-              alt="LOGO"
-              width={500}
-              height={100}
-              src="/logo.png"
-              className="w-[180px] h-auto"
-            ></Image>
-          </div>
+          <Image
+            src="/logo.png"
+            alt="LOGO"
+            width={500}
+            height={100}
+            className="w-[160px] h-auto"
+          />
         </div>
 
-        {/* Right Actions */}
-
+        {/* RIGHT ACTIONS */}
         <div className="flex items-center gap-6">
-          {user && (
+          <button className="p-2 hover:bg-neutral-100 rounded-lg transition hidden md:block">
+            <Search size={20} />
+          </button>
+
+          <button
+            onClick={() => dispatch(toggleCart())}
+            className="p-2 hover:bg-neutral-100 rounded-lg transition relative hidden md:block"
+          >
+            <ShoppingCart size={20} />
+            {totalCartItems > 0 && (
+              <span className="absolute top-1 right-1 w-2 h-2 bg-red-500 rounded-full"></span>
+            )}
+          </button>
+          {user ? (
             <DropdownMenu modal={false}>
               <DropdownMenuTrigger asChild>
                 <Image
                   src="/user-profile.png"
                   alt="profile"
-                  width={50}
-                  height={50}
-                ></Image>
+                  width={45}
+                  height={45}
+                  className="cursor-pointer"
+                />
               </DropdownMenuTrigger>
               <DropdownMenuContent className="w-40 z-[999]" align="end">
                 <div className="py-2 pl-2">
                   <Link href="/dashboard">Dashboard</Link>
                 </div>
                 <DropdownMenuSeparator />
-
                 <button
                   onClick={handleLogout}
-                  className="flex items-center gap-1  bg-transparent  text-red-500 border-0 py-2 pl-2 "
+                  className="flex items-center gap-1 text-red-500 py-2 pl-2"
                 >
                   Logout
                 </button>
               </DropdownMenuContent>
             </DropdownMenu>
+          ) : (
+            <Link
+              href="/login"
+              className="btn !mt-0 flex gap-2 items-center hidden md:flex"
+            >
+              Login
+            </Link>
           )}
+        </div>
+      </div>
+
+      {/* MOBILE DROPDOWN MENU */}
+      <div
+        className={`md:hidden overflow-hidden transition-all duration-300 bg-white/80 backdrop-blur-lg ${
+          openMenu ? "max-h-96 py-4" : "max-h-0 py-0"
+        }`}
+      >
+        <div className="flex flex-col items-center gap-6 pb-4">
+          <Link
+            href="/"
+            onClick={() => setOpenMenu(false)}
+            className="text-lg font-semibold"
+          >
+            HOME
+          </Link>
+          <Link
+            href="/about"
+            onClick={() => setOpenMenu(false)}
+            className="text-lg font-semibold"
+          >
+            About
+          </Link>
+          <Link
+            href="/Sweets"
+            onClick={() => setOpenMenu(false)}
+            className="text-lg font-semibold"
+          >
+            Our Sweets
+          </Link>
+          <Link
+            href="/contact"
+            onClick={() => setOpenMenu(false)}
+            className="text-lg font-semibold"
+          >
+            Contact
+          </Link>
+
+          {/* Mobile Login */}
           {!user && (
-            <>
-              <Link href="/login" className="btn !mt-0 flex gap-2 items-center">
-                Login
-              </Link>
-            </>
+            <Link
+              href="/login"
+              onClick={() => setOpenMenu(false)}
+              className="btn flex gap-2 items-center"
+            >
+              Login
+            </Link>
           )}
 
-          <button className="p-2 hover:bg-neutral-100 rounded-lg transition">
-            <Search size={20} className="text-neutral-900" />
-          </button>
-          <button
-            onClick={() => dispatch(toggleCart())}
-            className="p-2 hover:bg-neutral-100 rounded-lg transition relative"
-          >
-            <ShoppingCart size={20} className="text-neutral-900" />
-            <span className="absolute top-1 right-1 w-2 h-2 bg-red-500 rounded-full"></span>
-          </button>
+          {/* Mobile Cart + Search */}
+          <div className="flex items-center gap-4">
+            <button className="p-2 hover:bg-neutral-100 rounded-lg transition">
+              <Search size={22} />
+            </button>
+            <button
+              onClick={() => {
+                dispatch(toggleCart());
+                setOpenMenu(false);
+              }}
+              className="p-2 hover:bg-neutral-100 rounded-lg transition relative"
+            >
+              <ShoppingCart size={22} />
+              {totalCartItems > 0 && (
+                <span className="absolute top-1 right-1 w-2 h-2 bg-red-500 rounded-full"></span>
+              )}
+            </button>
+          </div>
         </div>
       </div>
     </header>
