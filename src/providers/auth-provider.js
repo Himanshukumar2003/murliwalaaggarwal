@@ -35,7 +35,6 @@ export default function AuthProvider({ children }) {
         localStorage.setItem("user", JSON.stringify(user));
       } catch (error) {
         setUser(null);
-        console.log(error);
       } finally {
         setIsUserLoading(false);
       }

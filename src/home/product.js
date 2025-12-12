@@ -19,8 +19,6 @@ export default function ProductSection() {
     dispatch(fetchProducts());
   }, [dispatch]);
 
-  console.log(products);
-
   const [favorites, setFavorites] = useState(new Set()); // Initialize as Set
   const [cart, setCart] = useState(new Set()); // Initialize as Set
 

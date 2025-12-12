@@ -19,7 +19,6 @@ const http = (headerType = "json", baseURL = API_ROOT) => {
   }
 
   async function handleError(error) {
-    console.log({ error });
     const originalRequest = error.config;
     if (error.status === 401 && !originalRequest._retry) {
       originalRequest._retry = true;

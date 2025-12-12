@@ -52,11 +52,6 @@ export default function ProductPage({ product }) {
   const isCartOpen = useSelector((state) => state.cart.isCartOpen);
   const [agreedToTerms, setAgreedToTerms] = useState(false);
 
-  console.log(bagPrintText);
-  console.log(bagPrintText);
-  console.log(frontPrintType);
-  console.log(frontPrint);
-
   const { mutate } = useMutation({
     mutationFn: ({ id, ...data }) => updateCartItem(id, { ...data }),
     onSuccess: () => {
@@ -86,15 +81,11 @@ export default function ProductPage({ product }) {
     },
   });
 
-  console.log("CART", cartItems);
-
   const isAddedToCart = useMemo(() => {
     if (cartItems) {
       return cartItems?.find((c) => c.product_id === product.id) ?? null;
     }
   }, [cartItems]);
-
-  console.log({ isAddedToCart });
 
   // 🧠 Automatically handle out-of-stock and over-quantity items
   useEffect(() => {

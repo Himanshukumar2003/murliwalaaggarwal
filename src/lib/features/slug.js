@@ -8,7 +8,6 @@ export const fetchProductBySlug = createAsyncThunk(
   "products/fetchProductBySlug",
   async (slug, { rejectWithValue }) => {
     try {
-      console.log("Fetching product with slug:", slug);
       const response = await fetch(
         `${API_BASE_URL}/product/get-by-slug/${slug}`
       );
@@ -17,7 +16,6 @@ export const fetchProductBySlug = createAsyncThunk(
         return rejectWithValue("Failed to fetch product by slug");
       }
       const data = await response.json();
-      console.log("Fetched product data:", data);
       return data.data;
     } catch (error) {
       console.error("Error fetching product:", error);
@@ -42,12 +40,10 @@ const productsSlice = createSlice({
         state.loading = true;
         state.error = null;
         state.singleProduct = null; // Clear previous product data
-        console.log("Product fetch pending...");
       })
       .addCase(fetchProductBySlug.fulfilled, (state, action) => {
         state.loading = false;
         state.singleProduct = action.payload;
-        console.log("Product fetch fulfilled:", action.payload);
       })
       .addCase(fetchProductBySlug.rejected, (state, action) => {
         state.loading = false;
