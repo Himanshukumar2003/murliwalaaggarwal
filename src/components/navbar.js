@@ -45,25 +45,25 @@ export default function Header() {
         <nav className="hidden md:flex items-center gap-8">
           <Link
             href="/"
-            className="text-[16px] font-semibold hover:text-neutral-600"
+            className="text-[16px] uppercase font-semibold hover:text-neutral-600"
           >
             HOME
           </Link>
           <Link
             href="/about"
-            className="text-[16px] font-semibold hover:text-neutral-600"
+            className="text-[16px] uppercase font-semibold hover:text-neutral-600"
           >
             About
           </Link>
           <Link
-            href="/Sweets"
-            className="text-[16px] font-semibold hover:text-neutral-600"
+            href="/product"
+            className="text-[16px] uppercase font-semibold hover:text-neutral-600"
           >
             Our Sweets
           </Link>
           <Link
             href="/contact"
-            className="text-[16px] font-semibold hover:text-neutral-600"
+            className="text-[16px] uppercase font-semibold hover:text-neutral-600"
           >
             Contact
           </Link>
@@ -71,7 +71,7 @@ export default function Header() {
 
         {/* MOBILE MENU BUTTON */}
         <button
-          className="md:hidden p-2 hover:bg-neutral-100 rounded-lg transition"
+          className="md:hidden uppercase p-2 hover:bg-neutral-100 rounded-lg transition"
           onClick={() => setOpenMenu(!openMenu)}
         >
           {openMenu ? <X size={24} /> : <Menu size={24} />}
@@ -114,14 +114,17 @@ export default function Header() {
                   className="cursor-pointer"
                 />
               </DropdownMenuTrigger>
-              <DropdownMenuContent className="w-40 z-[999]" align="end">
+              <DropdownMenuContent
+                className="w-40 uppercase z-[999]"
+                align="end"
+              >
                 <div className="py-2 pl-2">
                   <Link href="/dashboard">Dashboard</Link>
                 </div>
                 <DropdownMenuSeparator />
                 <button
                   onClick={handleLogout}
-                  className="flex items-center gap-1 text-red-500 py-2 pl-2"
+                  className="flex items-center uppercase gap-1 text-red-500 py-2 pl-2"
                 >
                   Logout
                 </button>
@@ -130,7 +133,7 @@ export default function Header() {
           ) : (
             <Link
               href="/login"
-              className="btn !mt-0 flex gap-2 items-center hidden md:flex"
+              className="btn !mt-0 flex gap-2 uppercase items-center hidden md:flex"
             >
               Login
             </Link>
@@ -144,7 +147,7 @@ export default function Header() {
           openMenu ? "max-h-96 py-4" : "max-h-0 py-0"
         }`}
       >
-        <div className="flex flex-col items-center gap-6 pb-4">
+        <div className="flex flex-col uppercase items-center gap-6 pb-4">
           <Link
             href="/"
             onClick={() => setOpenMenu(false)}
@@ -160,7 +163,7 @@ export default function Header() {
             About
           </Link>
           <Link
-            href="/Sweets"
+            href="/product"
             onClick={() => setOpenMenu(false)}
             className="text-lg font-semibold"
           >

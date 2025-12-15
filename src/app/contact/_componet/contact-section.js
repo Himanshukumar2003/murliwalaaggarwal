@@ -15,7 +15,7 @@ export function ContactSection() {
             Get in Touch <br />
             With{" "}
             <span className="inline-flex items-center gap-2">
-              BDS Education <span className="text-6xl">🎓</span>
+              murliwalaaggarwal <span className="text-6xl">🎓</span>
             </span>
           </h2>
 
@@ -101,7 +101,7 @@ export function ContactSection() {
         <div className="h-full flex flex-col justify-center items-center">
           <Image
             src="/img/1.jpg"
-            alt="BDS Education"
+            alt="murliwalaaggarwal"
             width={500}
             height={500}
             className="w-full mix-blend-multiply   rounded-lg"
