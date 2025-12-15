@@ -1,14 +1,25 @@
+import { Suspense } from "react";
+import ProductFillter from "./_components/search-bar";
 import { Breadcrumb } from "@/components/breadcrumb";
-import ProductSection from "@/home/product";
 
-export default function Product(params) {
+export default function SearchPage(params) {
   return (
     <>
       <Breadcrumb
-        title="Our Sweets"
-        items={[{ label: "Our Sweets", href: "/contact", isCurrent: true }]}
+        title="Products"
+        backgroundImage="/img/header1.webp"
+        items={[
+          {
+            label: "product",
+            href: "/product",
+            isCurrent: true,
+          },
+        ]}
       />
-      <ProductSection></ProductSection>
+
+      <Suspense fallback="Loading...">
+        <ProductFillter></ProductFillter>
+      </Suspense>
     </>
   );
 }

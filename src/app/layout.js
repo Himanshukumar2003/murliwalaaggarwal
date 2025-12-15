@@ -7,6 +7,7 @@ import Header from "@/components/navbar";
 import Layout from "@/components/layout/layout";
 import QueryProvider from "@/providers/query-client-provider";
 import Providers from "@/lib/povider";
+import { NuqsProvider } from "@/providers/nuqs-provider";
 
 export const brandonText = localFont({
   src: [
@@ -40,7 +41,9 @@ export default function RootLayout({ children }) {
       >
         <QueryProvider>
           <Providers>
-            <Layout>{children}</Layout>
+            <NuqsProvider>
+              <Layout>{children}</Layout>
+            </NuqsProvider>
             {/* <DelayedPopup /> */}
           </Providers>
         </QueryProvider>
