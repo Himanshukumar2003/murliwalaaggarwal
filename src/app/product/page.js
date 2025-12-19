@@ -1,5 +1,5 @@
 import { Suspense } from "react";
-import ProductFillter from "./_components/search-bar";
+import ProductFillter from "./_components/productFilter";
 import { Breadcrumb } from "@/components/breadcrumb";
 
 export default function SearchPage(params) {
