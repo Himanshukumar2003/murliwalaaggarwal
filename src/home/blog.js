@@ -29,8 +29,8 @@ export default function Blogs() {
   ];
 
   return (
-    <section className="py-16 lg:py-24">
-      <div className="mx-auto max-w-7xl px-6 lg:px-8 ">
+    <section className="py-12   bg-[#FFFBEB]">
+      <div className="mx-auto max-w-7xl px-4 lg:px-4 ">
         <h2 className="mb-12 text-center font-serif text-4xl  text-[#2d3e2f] lg:text-5xl">
           Latest News
         </h2>

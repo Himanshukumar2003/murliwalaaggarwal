@@ -33,7 +33,7 @@ export default function AboutUs() {
             <div className="grid lg:grid-cols-3 gap-10 items-stretch">
               {/* LEFT TEXT */}
               <div
-                className="text-md uppercase tracking-widest text-slate-600 order-2 lg:order-1
+                className="text-md  tracking-widest text-slate-600 order-2 lg:order-1
                         flex flex-col h-full justify-between"
               >
                 <div>
@@ -60,13 +60,13 @@ export default function AboutUs() {
                   alt="Sugar Town Bakery storefront"
                   width={500}
                   height={500}
-                  className="w-full max-h-[500px]"
+                  className="w-full max-h-[450px]"
                 />
               </div>
 
               {/* RIGHT TEXT */}
               <div
-                className="text-md uppercase tracking-widest text-slate-600 order-3
+                className="text-md  tracking-widest text-slate-600 order-3
                         flex flex-col h-full justify-between"
               >
                 <div>

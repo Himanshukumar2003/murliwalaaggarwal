@@ -26,7 +26,7 @@ const Heading = ({
         {title}
       </h2>
 
-      <p className={cn("text-slate-600 max-w-4xl mx-auto", subtitleClass)}>
+      <p className={cn("text-slate-600 max-w-xl mx-auto", subtitleClass)}>
         {subtitle}
       </p>
     </div>

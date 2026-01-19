@@ -163,3 +163,22 @@ h1, h2, h3, h4, h5 {
   background-color: var(--secondary); /* hover:bg-primary */
   color: #ffffff;                   /* hover:text-white */
 }
+
+
+@keyframes floatIcon {
+  0% {
+    transform: translateY(0) scale(1);
+  }
+  50% {
+    transform: translateY(-8px) scale(1.08);
+  }
+  100% {
+    transform: translateY(0) scale(1);
+  }
+}
+
+.animate-float {
+  animation: floatIcon 3s ease-in-out infinite;
+}
+
+

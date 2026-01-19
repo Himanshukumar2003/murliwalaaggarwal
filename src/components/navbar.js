@@ -1,6 +1,6 @@
 "use client";
 
-import { Search, ShoppingCart, Menu, X } from "lucide-react";
+import { Search, ShoppingCart, Menu, X, User } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import Image from "next/image";
 import Link from "next/link";
@@ -116,16 +116,18 @@ export default function Header() {
           {user ? (
             <DropdownMenu modal={false}>
               <DropdownMenuTrigger asChild>
-                <Image
-                  src="/user-profile.png"
-                  alt="profile"
-                  width={45}
-                  height={45}
-                  className="cursor-pointer"
-                />
+                <div
+                  className="relative flex items-center justify-center w-11 h-11 rounded-full 
+bg-gradient-to-br from-primary/10 to-secondary/10 
+border border-primary/20 
+hover:scale-105 transition-all duration-300"
+                >
+                  <User size={20} className="text-primary" />
+                </div>
               </DropdownMenuTrigger>
+
               <DropdownMenuContent
-                className="w-40 uppercase z-[999]"
+                className="w-40 uppercase z-[999999]"
                 align="end"
               >
                 <div className="py-2 pl-2">
