@@ -42,7 +42,7 @@ export default function Header() {
     <header className="fixed top-0 left-0 right-0 z-[9999] bg-[#ffffffcc] backdrop-blur-2xl border-b  saturate-180">
       <div className="max-w-7xl mx-auto px-6 py-4 flex items-center justify-between">
         {/* LEFT MENU (Desktop) */}
-        <nav className="hidden md:flex items-center gap-8">
+        <nav className="hidden lg:flex items-center gap-8">
           <Link
             href="/"
             className="text-[16px] uppercase font-semibold hover:text-neutral-600"
@@ -63,7 +63,7 @@ export default function Header() {
           </Link>
 
           <Link
-            href="/product?categories=4"
+            href="/product?category=4"
             className="text-[16px] uppercase font-semibold hover:text-neutral-600"
           >
             Wedding Bhaji
@@ -71,15 +71,9 @@ export default function Header() {
         </nav>
 
         {/* MOBILE MENU BUTTON */}
-        <button
-          className="md:hidden uppercase p-2 hover:bg-neutral-100 rounded-lg transition"
-          onClick={() => setOpenMenu(!openMenu)}
-        >
-          {openMenu ? <X size={24} /> : <Menu size={24} />}
-        </button>
 
         {/* CENTER LOGO */}
-        <div className="absolute left-1/2 transform -translate-x-1/2">
+        <div className=" h-[40px] flex justify-center   items-center">
           <Image
             src="/logo.png"
             alt="LOGO"
@@ -90,23 +84,23 @@ export default function Header() {
         </div>
 
         {/* RIGHT ACTIONS */}
-        <div className="flex items-center gap-6">
+        <div className="flex items-center gap-6 ">
           <Link
-            href="/product?categories=5"
-            className="text-[16px] uppercase font-semibold hover:text-neutral-600"
+            href="/product?category=5"
+            className="text-[16px] uppercase font-semibold hover:text-neutral-600 hidden lg:block"
           >
             Festive Collection
           </Link>
           <Link
             href="/contact"
-            className="text-[16px] uppercase font-semibold hover:text-neutral-600"
+            className="text-[16px] uppercase font-semibold hover:text-neutral-600 hidden lg:block"
           >
             Contact
           </Link>
 
           <button
             onClick={() => dispatch(toggleCart())}
-            className="p-2 hover:bg-neutral-100 rounded-lg transition relative hidden md:block"
+            className="p-2 hover:bg-neutral-100 rounded-lg transition relative hidden lg:block"
           >
             <ShoppingCart size={20} />
             {totalCartItems > 0 && (
@@ -145,18 +139,25 @@ hover:scale-105 transition-all duration-300"
           ) : (
             <Link
               href="/login"
-              className="btn !mt-0 flex gap-2 uppercase items-center hidden md:flex"
+              className="btn !mt-0 flex gap-2 uppercase items-center hidden lg:flex"
             >
               Login
             </Link>
           )}
+
+          <button
+            className="lg:hidden uppercase p-2 hover:bg-neutral-100 rounded-lg transition"
+            onClick={() => setOpenMenu(!openMenu)}
+          >
+            {openMenu ? <X size={24} /> : <Menu size={24} />}
+          </button>
         </div>
       </div>
 
       {/* MOBILE DROPDOWN MENU */}
       <div
-        className={`md:hidden overflow-hidden transition-all duration-300 bg-white/80 backdrop-blur-lg ${
-          openMenu ? "max-h-96 py-4" : "max-h-0 py-0"
+        className={`lg:hidden overflow-hidden transition-all duration-300 bg-white/80 backdrop-blur-lg ${
+          openMenu ? "max-h-[520px] py-4" : "max-h-0 py-0"
         }`}
       >
         <div className="flex flex-col uppercase items-center gap-6 pb-4">
@@ -167,6 +168,7 @@ hover:scale-105 transition-all duration-300"
           >
             HOME
           </Link>
+
           <Link
             href="/about"
             onClick={() => setOpenMenu(false)}
@@ -174,6 +176,7 @@ hover:scale-105 transition-all duration-300"
           >
             About
           </Link>
+
           <Link
             href="/product"
             onClick={() => setOpenMenu(false)}
@@ -181,6 +184,23 @@ hover:scale-105 transition-all duration-300"
           >
             Our Sweets
           </Link>
+
+          <Link
+            href="/product?category=4"
+            onClick={() => setOpenMenu(false)}
+            className="text-lg font-semibold"
+          >
+            Wedding Bhaji
+          </Link>
+
+          <Link
+            href="/product?category=5"
+            onClick={() => setOpenMenu(false)}
+            className="text-lg font-semibold"
+          >
+            Festive Collection
+          </Link>
+
           <Link
             href="/contact"
             onClick={() => setOpenMenu(false)}
@@ -201,10 +221,11 @@ hover:scale-105 transition-all duration-300"
           )}
 
           {/* Mobile Cart + Search */}
-          <div className="flex items-center gap-4">
+          <div className="flex items-center gap-4 pt-2">
             <button className="p-2 hover:bg-neutral-100 rounded-lg transition">
               <Search size={22} />
             </button>
+
             <button
               onClick={() => {
                 dispatch(toggleCart());

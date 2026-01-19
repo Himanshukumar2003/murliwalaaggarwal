@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState, useEffect, useMemo } from "react";
 import { Button } from "@/components/ui/button";
 import { Separator } from "@/components/ui/separator";
 import { Switch } from "@/components/ui/switch";
@@ -12,29 +12,36 @@ import { Slider } from "@/components/ui/slider";
 export function FilterSidebar({
   title,
   categories = [],
-  categoriesQ = [],
+  categoriesQ,
   onCategoriesChange,
   onClear,
   isAnyFiltterActive,
   price = 20000, // ✅ single price value
-  onPriceChange,
+  range,
+  setRange,
 }) {
   // ✅ Local state for single price slider
   const [localPrice, setLocalPrice] = useState(price);
-  const [range, setRange] = useQueryStates({
-    price_from: parseAsInteger.withOptions({ throttleMs: 500 }),
-    price_to: parseAsInteger.withOptions({ throttleMs: 500 }),
-  });
 
   const { price_from, price_to } = range;
 
+  const categorySelectedValueSet = useMemo(() => {
+    if (!categoriesQ) return new Set();
+    const values = categoriesQ.split(".");
+
+    return new Set(values.filter((v) => v !== ""));
+  }, [categoriesQ]);
+
   const toggleCategory = (id) => {
     const idStr = String(id);
-    if (categoriesQ.includes(idStr)) {
-      onCategoriesChange(categoriesQ.filter((c) => c !== idStr));
+    const newSet = new Set(categorySelectedValueSet);
+    if (newSet.has(idStr)) {
+      newSet.delete(idStr);
     } else {
-      onCategoriesChange([...categoriesQ, idStr]);
+      newSet.add(idStr);
     }
+
+    onCategoriesChange(Array.from(newSet).join("."));
   };
 
   const handleSliderChange = (values) => {
@@ -77,7 +84,7 @@ export function FilterSidebar({
 
             <div className="space-y-2">
               {categories.map((cat) => {
-                const checked = categoriesQ.includes(String(cat.id));
+                const checked = categoriesQ.split(".").includes(String(cat.id));
 
                 return (
                   <div
@@ -111,7 +118,8 @@ export function FilterSidebar({
 
         {/* Price Display */}
         <div className="text-center text-base font-semibold text-primary mb-2">
-          ₹0 – ₹{localPrice.toLocaleString()}
+          ₹${price_from?.toLocaleString() ?? "0"} – ₹
+          {price_to?.toLocaleString() ?? "0"}
         </div>
 
         <div className=" flex">

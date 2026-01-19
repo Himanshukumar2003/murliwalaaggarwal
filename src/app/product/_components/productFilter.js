@@ -5,7 +5,13 @@ import { FilterSidebar } from "./filter-sidebar";
 import { useQuery } from "@tanstack/react-query";
 import http from "@/utils/http";
 import { endpoints } from "@/utils/endpoints";
-import { useQueryState, parseAsArrayOf, parseAsString } from "nuqs";
+import {
+  useQueryState,
+  parseAsArrayOf,
+  parseAsString,
+  useQueryStates,
+  parseAsInteger,
+} from "nuqs";
 import ProductCard from "@/components/productcard";
 import { useSearchParams } from "next/navigation";
 import {
@@ -20,17 +26,17 @@ export default function ProductFilter() {
   const searchParams = useSearchParams();
   const searchParamsStr = searchParams.toString();
 
-  // ✅ SINGLE PRICE (URL synced)
-  const [price, setPrice] = useQueryState("price", {
-    defaultValue: "20000",
-    parse: parseAsString,
+  const [range, setRange] = useQueryStates({
+    price_from: parseAsInteger.withOptions({ throttleMs: 500 }),
+    price_to: parseAsInteger.withOptions({ throttleMs: 500 }),
   });
 
-  // MULTI-CATEGORY ARRAY
-  const [categoriesQ, setCategoriesQ] = useQueryState("categories", {
-    defaultValue: [],
-    parse: parseAsArrayOf(parseAsString),
-  });
+  const { price_from, price_to } = range;
+
+  const [categoriesQ, setCategoriesQ] = useQueryState(
+    "category",
+    parseAsString.withDefault("")
+  );
 
   // PRODUCTS
   const { data: products = [], isLoading } = useQuery({
@@ -43,7 +49,6 @@ export default function ProductFilter() {
     },
   });
 
-  // CATEGORIES
   const { data: categories = [] } = useQuery({
     queryKey: ["categories"],
     queryFn: async () => {
@@ -54,26 +59,13 @@ export default function ProductFilter() {
 
   // CLEAR FILTERS
   const clearFilters = () => {
-    setCategoriesQ([]);
-    setPrice("20000");
+    setCategoriesQ(null);
+    setRange({ price_from: null, price_to: null });
   };
 
   const isAnyFilterActive = useMemo(() => {
-    return categoriesQ.length > 0 || price !== "20000";
-  }, [categoriesQ, price]);
-
-  // ✅ FILTER PRODUCTS (SINGLE PRICE)
-  const filteredProducts = useMemo(() => {
-    let filtered = products;
-
-    if (categoriesQ.length > 0) {
-      filtered = filtered.filter((p) =>
-        categoriesQ.includes(String(p.category_id))
-      );
-    }
-
-    return filtered;
-  }, [products, categoriesQ]);
+    return !!categoriesQ || !!price_from || !!price_to;
+  }, [categoriesQ, price_from, price_to]);
 
   return (
     <main className="container mx-auto px-4 py-6 md:py-8">
@@ -85,10 +77,10 @@ export default function ProductFilter() {
             categories={categories}
             categoriesQ={categoriesQ}
             onCategoriesChange={setCategoriesQ}
-            price={Number(price)}
-            onPriceChange={(value) => setPrice(String(value))}
             onClear={clearFilters}
             isAnyFiltterActive={isAnyFilterActive}
+            range={range}
+            setRange={setRange}
           />
         </aside>
 
@@ -109,10 +101,10 @@ export default function ProductFilter() {
                   categories={categories}
                   categoriesQ={categoriesQ}
                   onCategoriesChange={setCategoriesQ}
-                  price={Number(price)}
-                  onPriceChange={(value) => setPrice(String(value))}
                   onClear={clearFilters}
                   isAnyFiltterActive={isAnyFilterActive}
+                  range={range}
+                  setRange={setRange}
                 />
               </SheetHeader>
             </SheetContent>
@@ -125,7 +117,7 @@ export default function ProductFilter() {
             <div className="flex items-center justify-center py-12">
               <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-primary" />
             </div>
-          ) : filteredProducts.length === 0 ? (
+          ) : products.length === 0 ? (
             <div className="text-center py-12">
               <p className="text-lg text-muted-foreground">
                 No products found.
@@ -134,10 +126,10 @@ export default function ProductFilter() {
           ) : (
             <>
               <p className="mb-4 text-sm text-muted-foreground">
-                Showing {filteredProducts.length} products
+                Showing {products.length} products
               </p>
               <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-4">
-                {filteredProducts.map((product) => (
+                {products.map((product) => (
                   <ProductCard key={product.id} product={product} />
                 ))}
               </div>

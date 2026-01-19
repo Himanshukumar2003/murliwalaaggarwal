@@ -18,7 +18,7 @@ export function Breadcrumb({ items, title, className = "" }) {
           className="w-full h-full object-cover absolute inset-0"
         />
         {/* Overlay */}
-        <div className="absolute inset-0 bg-[rgba(0,61,116,0.7)]" />
+        <div className="absolute inset-0 bg-[rgba(230,39,42,0.4)]" />
       </div>
 
       {/* Content */}
