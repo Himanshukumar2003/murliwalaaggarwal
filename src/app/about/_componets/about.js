@@ -21,26 +21,29 @@ export default function About() {
             {/* Right Column - Content */}
             <div className="space-y-8">
               <h2 className="font-serif text-5xl text-slate-900 mb-4">
-                Over 20 years as your local neighborhood bakery, made possible
-                by you
+                About Us
               </h2>
 
               <p className="text-base leading-relaxed text-[#5a6b5c] md:text-lg">
-                Sharing our love for celebration was always the dream, and
-                sharing it with colleagues, friends, and family is what we
-                do...and will continue you do for you. From our Icebox Cake to
-                our Red Velvet cupcakes, our goal is to make the most fresh,
-                most delicious sweets we can. We use natural ingredients,
-                traditional recipes and skilled bakers to do this.
+                Murliwala Aggarwal Sweets was founded in 2012 by Mr. Manoj Kumar
+                Goyal, with a simple vision — to serve honest, high-quality
+                sweets and snacks made with purity, tradition, and consistency.
+                What began as a small neighbourhood outlet has now grown into a
+                trusted name across Delhi, loved for its authentic taste and
+                reliable quality.
               </p>
 
               <p className="text-base leading-relaxed text-[#5a6b5c] md:text-lg">
-                Sharing our love for celebration was always the dream, and
-                sharing it with colleagues, friends, and family is what we
-                do...and will continue you do for you. From our Icebox Cake to
-                our Red Velvet cupcakes, our goal is to make the most fresh,
-                most delicious sweets we can. We use natural ingredients,
-                traditional recipes and skilled bakers to do this.
+                Over the years, we’ve expanded our range from traditional Indian
+                mithai to namkeens, bakery products, fresh cakes, biscuits, and
+                festive gift hampers. Even as we’ve grown, our values remain the
+                same: clean preparation, premium ingredients, and flavours that
+                remind you of home.
+              </p>
+              <p className="text-base leading-relaxed text-[#5a6b5c] md:text-lg">
+                At Murliwala Aggarwal Sweets, every product—whether it’s a box
+                of laddoos, a designer cake, or a festive hamper—reflects our
+                commitment to freshness, hygiene, and heartfelt craftsmanship.{" "}
               </p>
             </div>
           </div>
@@ -98,10 +101,10 @@ export default function About() {
         <div className="mx-auto max-w-7xl px-4 py-12 lg:px-8 lg:py-16">
           <div className="grid gap-12 lg:grid-cols-2 lg:gap-16 items-center">
             {/* Left Column - Image */}
-            <div className="relative  overflow-hidden rounded-lg">
+            <div className="relative overflow-hidden rounded-lg">
               <Image
                 src="/img/product1.JPG"
-                alt="feachers"
+                alt="features"
                 width={500}
                 height={500}
                 className="w-full object-cover max-h-[500px]"
@@ -111,22 +114,19 @@ export default function About() {
             {/* Right Column - Content */}
             <div className="space-y-8">
               <h2 className="font-serif text-5xl text-slate-900 mb-4">
-                Over 20 years as your local neighborhood bakery, made possible
-                by you
+                What Sets Us Apart
               </h2>
 
-              <p className="text-base leading-relaxed text-[#5a6b5c] md:text-lg">
-                Sharing our love for celebration was always the dream, and
-                sharing it with colleagues, friends, and family is what we
-                do...and will continue you do for you. From our Icebox Cake to
-                our Red Velvet cupcakes, our goal is to make the most fresh,
-                most delicious sweets we can. We use natural ingredients,
-                traditional recipes and skilled bakers to do this.
+              <p className="text-base leading-relaxed text-[#5a6b5c] md:text-lg mb-3">
+                Our journey is built on authenticity, purity, and consistency.
+                Every product reflects years of expertise, modern hygienic
+                practices, and a commitment to delivering flavours trusted by
+                families since 2012.
               </p>
 
-              {/* Services */}
-              <div className="space-y-6 pt-4">
-                {/* In Store Pickup */}
+              {/* Points */}
+              <div className="space-y-4 pt-4">
+                {/* Point 1 */}
                 <div className="flex gap-4 items-start">
                   <div className="flex h-16 w-16 shrink-0 items-center justify-center rounded-full bg-[#7a9278]">
                     <Store
@@ -136,16 +136,16 @@ export default function About() {
                   </div>
                   <div className="space-y-1 pt-1">
                     <h3 className="font-serif text-xl text-[#2d3e2f]">
-                      In Store Pickup
+                      Authentic Recipes
                     </h3>
                     <p className="text-sm leading-relaxed text-[#5a6b5c]">
-                      Pick up as early as 9AM from any of our 3 Manhattan
-                      locations.
+                      Authentic recipes perfected over years of experience to
+                      deliver rich, traditional flavours.
                     </p>
                   </div>
                 </div>
 
-                {/* Local Delivery */}
+                {/* Point 2 */}
                 <div className="flex gap-4 items-start">
                   <div className="flex h-16 w-16 shrink-0 items-center justify-center rounded-full bg-[#7a9278]">
                     <ShoppingBag
@@ -155,27 +155,43 @@ export default function About() {
                   </div>
                   <div className="space-y-1 pt-1">
                     <h3 className="font-serif text-xl text-[#2d3e2f]">
-                      Local Delivery
+                      Hygienic & Modern Production
                     </h3>
                     <p className="text-sm leading-relaxed text-[#5a6b5c]">
-                      We&apos;ll bring it to you in Manhattan and most parts of
-                      Brooklyn and Queens.
+                      Modern, hygienic production processes with a strong focus
+                      on purity and quality.
                     </p>
                   </div>
                 </div>
 
-                {/* Shipping Nationwide */}
+                {/* Point 3 */}
                 <div className="flex gap-4 items-start">
                   <div className="flex h-16 w-16 shrink-0 items-center justify-center rounded-full bg-[#7a9278]">
                     <Gift className="h-7 w-7 text-amber-50" strokeWidth={1.5} />
                   </div>
                   <div className="space-y-1 pt-1">
                     <h3 className="font-serif text-xl text-[#2d3e2f]">
-                      Shipping Nationwide
+                      Wide Product Range
                     </h3>
                     <p className="text-sm leading-relaxed text-[#5a6b5c]">
-                      A curated selection of treats delivered to the comfort of
-                      your home.
+                      A wide assortment of sweets, cakes, bakery items, and
+                      snacks to suit every occasion.
+                    </p>
+                  </div>
+                </div>
+
+                {/* Point 4 */}
+                <div className="flex gap-4 items-start">
+                  <div className="flex h-16 w-16 shrink-0 items-center justify-center rounded-full bg-[#7a9278]">
+                    <Gift className="h-7 w-7 text-amber-50" strokeWidth={1.5} />
+                  </div>
+                  <div className="space-y-1 pt-1">
+                    <h3 className="font-serif text-xl text-[#2d3e2f]">
+                      Custom Gifting & Celebrations
+                    </h3>
+                    <p className="text-sm leading-relaxed text-[#5a6b5c]">
+                      Custom hampers, corporate gifting, and wedding special
+                      orders crafted for memorable celebrations.
                     </p>
                   </div>
                 </div>
@@ -187,13 +203,13 @@ export default function About() {
 
       <section className="bg-white py-16 lg:py-24">
         <div className="mx-auto max-w-7xl px-6 lg:px-8">
+          {/* Heading */}
           <div className="mb-12 text-center">
             <h2 className="font-serif text-4xl text-[#2d3e2f] lg:text-5xl">
               Our Purpose
             </h2>
             <p className="mx-auto mt-4 max-w-2xl text-base leading-relaxed text-[#5a6b5c]">
-              Guided by tradition, driven by passion, and committed to
-              excellence
+              Rooted in tradition, driven by quality, and inspired by trust
             </p>
           </div>
 
@@ -202,6 +218,7 @@ export default function About() {
             <div className="rounded-lg bg-amber-50 p-8 text-center">
               <div className="mb-4 flex justify-center">
                 <div className="flex h-20 w-20 items-center justify-center rounded-full bg-[#7a9278]">
+                  {/* Target Icon */}
                   <svg
                     className="h-10 w-10 text-amber-50"
                     fill="none"
@@ -212,8 +229,9 @@ export default function About() {
                     <path
                       strokeLinecap="round"
                       strokeLinejoin="round"
-                      d="M9 12.75L11.25 15 15 9.75M21 12a9 9 0 11-18 0 9 9 0 0118 0z"
+                      d="M12 3v3m0 12v3m9-9h-3M6 12H3m14.364-5.364l-2.121 2.121M8.757 15.243l-2.121 2.121m0-10.607l2.121 2.121m8.486 8.486l2.121 2.121"
                     />
+                    <circle cx="12" cy="12" r="4" />
                   </svg>
                 </div>
               </div>
@@ -221,9 +239,9 @@ export default function About() {
                 Our Mission
               </h3>
               <p className="leading-relaxed text-[#5a6b5c]">
-                To craft exceptional baked goods using time-honored recipes and
-                the finest natural ingredients, bringing joy and celebration to
-                every neighborhood we serve.
+                To serve pure, high-quality sweets and bakery products crafted
+                with authentic recipes, hygienic processes, and consistent taste
+                that families can trust every day.
               </p>
             </div>
 
@@ -231,6 +249,7 @@ export default function About() {
             <div className="rounded-lg bg-amber-50 p-8 text-center">
               <div className="mb-4 flex justify-center">
                 <div className="flex h-20 w-20 items-center justify-center rounded-full bg-[#7a9278]">
+                  {/* Eye / Vision Icon */}
                   <svg
                     className="h-10 w-10 text-amber-50"
                     fill="none"
@@ -255,16 +274,17 @@ export default function About() {
                 Our Vision
               </h3>
               <p className="leading-relaxed text-[#5a6b5c]">
-                To be the heart of every celebration and cherished moment,
-                creating lasting memories one delicious treat at a time, for
-                generations to come.
+                To become Delhi’s most reliable and modern sweets & bakery
+                brand—one that blends tradition with innovation and brings
+                people together through unforgettable flavours.
               </p>
             </div>
 
-            {/* Values */}
+            {/* Values / Promise */}
             <div className="rounded-lg bg-amber-50 p-8 text-center">
               <div className="mb-4 flex justify-center">
                 <div className="flex h-20 w-20 items-center justify-center rounded-full bg-[#7a9278]">
+                  {/* Handshake / Trust Icon */}
                   <svg
                     className="h-10 w-10 text-amber-50"
                     fill="none"
@@ -275,18 +295,20 @@ export default function About() {
                     <path
                       strokeLinecap="round"
                       strokeLinejoin="round"
-                      d="M21 8.25c0-2.485-2.099-4.5-4.688-4.5-1.935 0-3.597 1.126-4.312 2.733-.715-1.607-2.377-2.733-4.313-2.733C5.1 3.75 3 5.765 3 8.25c0 7.22 9 12 9 12s9-4.78 9-12z"
+                      d="M7 11l5 5L22 6M2 12l5 5L17 7"
                     />
                   </svg>
                 </div>
               </div>
               <h3 className="mb-4 font-serif text-2xl text-[#2d3e2f]">
-                Our Values
+                Our Values & Promise
               </h3>
               <p className="leading-relaxed text-[#5a6b5c]">
-                Quality, community, and authenticity guide everything we do. We
-                believe in supporting local, honoring tradition, and treating
-                every customer like family.
+                Purity-first ingredients, consistent taste, innovation in
+                flavours and packaging, honest pricing, and respect for every
+                customer and team member. Your celebrations matter to us—and we
+                strive to earn your trust with freshness, quality, and
+                continuous improvement.
               </p>
             </div>
           </div>

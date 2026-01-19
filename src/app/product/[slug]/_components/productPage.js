@@ -144,18 +144,18 @@ export default function ProductPage({ product }) {
     product.pictures?.map((p) => `${config.file_base}${p}`) || [];
 
   return (
-    <main className="min-h-screen bg-background pt-20">
-      <div className="max-w-7xl mx-auto px-4 py-8 lg:py-12">
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-12">
+    <main className="min-h-screen bg-background pt-20 overflow-visible">
+      <div className="max-w-7xl mx-auto px-4 py-8 lg:py-12 overflow-visible">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-12 overflow-visible">
           {/* ================= LEFT IMAGES ================= */}
-          <div className="flex flex-col gap-4 sticky top-[120px]">
-            <div className="relative bg-muted rounded-lg overflow-hidden aspect-square flex items-center justify-center">
+          <div className="flex flex-col gap-4 sticky top-[120px] self-start">
+            <div className="relative bg-muted rounded-lg overflow-hidden aspect-square flex items-center justify-center max-h-[450px]">
               <Image
                 src={pictures[selectedImage] || "/placeholder.svg"}
                 alt="product-main-img"
                 width={500}
                 height={500}
-                className="w-full h-full object-cover"
+                className="w-full h-full object-cover "
                 priority
               />
             </div>

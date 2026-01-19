@@ -61,11 +61,12 @@ export default function Header() {
           >
             Our Sweets
           </Link>
+
           <Link
-            href="/contact"
+            href="/product?categories=4"
             className="text-[16px] uppercase font-semibold hover:text-neutral-600"
           >
-            Contact
+            Wedding Bhaji
           </Link>
         </nav>
 
@@ -90,9 +91,18 @@ export default function Header() {
 
         {/* RIGHT ACTIONS */}
         <div className="flex items-center gap-6">
-          <button className="p-2 hover:bg-neutral-100 rounded-lg transition hidden md:block">
-            <Search size={20} />
-          </button>
+          <Link
+            href="/product?categories=5"
+            className="text-[16px] uppercase font-semibold hover:text-neutral-600"
+          >
+            Festive Collection
+          </Link>
+          <Link
+            href="/contact"
+            className="text-[16px] uppercase font-semibold hover:text-neutral-600"
+          >
+            Contact
+          </Link>
 
           <button
             onClick={() => dispatch(toggleCart())}
