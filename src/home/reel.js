@@ -5,77 +5,82 @@ import { Autoplay } from "swiper/modules";
 import "swiper/css";
 import { useRef } from "react";
 import Heading from "@/components/ui/heading";
+import { useQuery } from "@tanstack/react-query";
+import http from "@/utils/http";
+import { endpoints } from "@/utils/endpoints";
+import Loader from "@/components/loader";
 
 export default function VideoSwiper() {
   const swiperRef = useRef(null);
 
-  const videos = [
-    "/video/murliwala.mp4",
-    "/video/murliwala.mp4",
-    "/video/murliwala.mp4",
-    "/video/murliwala.mp4",
-    "/video/murliwala.mp4",
-    "/video/murliwala.mp4",
-    "/video/murliwala.mp4",
-    "/video/murliwala.mp4",
-  ];
+  const {
+    data = [],
+    isLoading,
+    isError,
+    error,
+  } = useQuery({
+    queryKey: ["stories"],
+    queryFn: async () => {
+      const res = await http().get(endpoints.stories.getAll);
+      return res?.data?.stories ?? [];
+    },
+  });
 
+  // ⛔ video play → swiper stop
   const handlePlay = () => {
-    if (swiperRef.current) {
-      swiperRef.current.autoplay.stop();
-    }
+    swiperRef.current?.autoplay?.stop();
   };
 
+  // ▶ video pause/end → swiper start
   const handlePause = () => {
-    if (swiperRef.current) {
-      swiperRef.current.autoplay.start();
-    }
+    swiperRef.current?.autoplay?.start();
   };
+
+  if (isLoading) return <Loader />;
+  if (isError)
+    return (
+      error?.response?.data?.message ??
+      error?.message ??
+      "Something went wrong."
+    );
+
+  // ✅ agar data hi nahi hai → section render hi nahi hoga
+  if (!data.length) return null;
 
   return (
     <section className="py-16 px-4">
       <div className="container max-w-7xl mx-auto">
-        <Heading
-          tag="Sweet Treats"
-          title="Our Specialties"
-          subtitle="Handcrafted with love and the finest ingredients"
-        />
-
         <Swiper
           modules={[Autoplay]}
           onSwiper={(swiper) => (swiperRef.current = swiper)}
-          loop={true}
+          loop
           autoplay={{
             delay: 3000,
             disableOnInteraction: false,
           }}
           breakpoints={{
-            567: {
-              slidesPerView: 1,
-            },
-            786: {
-              slidesPerView: 2,
-            },
-            1024: {
-              slidesPerView: 4,
-            },
+            567: { slidesPerView: 1 },
+            786: { slidesPerView: 2 },
+            1024: { slidesPerView: 4 },
           }}
           spaceBetween={20}
           className="w-full"
         >
-          {videos.map((src, index) => (
+          {data.map((item, index) => (
             <SwiperSlide key={index}>
-              <div className="w-full  flex items-center justify-center">
-                <video
-                  className="w-full  object-cover h-[400px]   rounded-2xl"
-                  controls
-                  playsInline
-                  onPlay={handlePlay}
-                  onPause={handlePause}
-                  onEnded={handlePause}
-                >
-                  <source src={src} type="video/mp4" />
-                </video>
+              <div className="w-full flex justify-center">
+                <iframe
+                  width="560"
+                  height="400"
+                  className="rounded-[20px]"
+                  src={item.link}
+                  title={`Video ${index + 1}`}
+                  frameBorder="0"
+                  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                  allowFullScreen
+                  onMouseEnter={handlePlay} // 🛑 hover / play
+                  onMouseLeave={handlePause} // ▶ leave / pause
+                />
               </div>
             </SwiperSlide>
           ))}

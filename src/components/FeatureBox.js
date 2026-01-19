@@ -5,7 +5,7 @@ export default function FeatureBox({ icon, title, description }) {
   return (
     <Card className="shadow-lg p-6 bg-white rounded-md">
       <CardHeader>
-        <Icon className="text-4xl text-green-500">{icon}</Icon>
+        <Icon className="text-4xl text-premari">{icon}</Icon>
       </CardHeader>
       <div>
         <div className="text-2xl font-semibold text-gray-900">{title}</div>
