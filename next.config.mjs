@@ -4,7 +4,7 @@ const nextConfig = {
     remotePatterns: [
       {
         protocol: "https",
-        hostname: "bdsapi.bwdemo.in",
+        hostname: "api.murliwalaaggarwal.com",
       },
       {
         protocol: "https",
@@ -18,7 +18,7 @@ const nextConfig = {
 
       {
         protocol: "https",
-        hostname: "murliwalaapi.bwdemo.in",
+        hostname: "murliwalaaggarwal.com",
         port: "",
       },
     ],
