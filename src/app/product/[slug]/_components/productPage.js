@@ -140,8 +140,8 @@ export default function ProductPage({ product }) {
         <div className="max-w-7xl mx-auto px-4 py-8 lg:py-12 overflow-visible">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-12 overflow-visible">
             {/* ================= LEFT IMAGES ================= */}
-            <div className="flex flex-col gap-4 sticky top-[120px] self-start">
-              <div className="relative bg-muted rounded-lg overflow-hidden aspect-square flex items-center justify-center max-h-[450px]">
+            <div className="flex flex-col gap-4 lg:sticky lg:top-[120px] lg:self-start">
+              <div className="relative bg-muted rounded-lg overflow-hidden aspect-square flex items-center justify-center ">
                 <Image
                   src={pictures[selectedImage] || "/placeholder.svg"}
                   alt="product-main-img"
