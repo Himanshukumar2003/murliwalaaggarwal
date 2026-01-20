@@ -26,7 +26,6 @@ export default function AboutUs() {
         <div className="container max-w-7xl px-4 mx-auto">
           <div className="container px-4 mx-auto mt-6">
             <Heading
-              tag="About"
               title="About Us"
               subtitle="Rooted in tradition and guided by purity, we craft sweets that celebrate authentic Indian flavours. Every creation reflects our promise of quality, freshness, and heartfelt taste."
               subtitleClass="text-gray-700 max-w-xl mx-auto leading-relaxed"

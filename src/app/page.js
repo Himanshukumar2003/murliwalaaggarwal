@@ -33,7 +33,7 @@ export default function Home() {
 
       <Menu></Menu>
       <VideoSwiper></VideoSwiper>
-      <Gallery></Gallery>
+      {/* <Gallery></Gallery> */}
 
       <Blogs></Blogs>
       <TestimonialCard></TestimonialCard>
