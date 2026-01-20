@@ -19,7 +19,10 @@ const marqueeItems = [
 export default function AboutUs() {
   return (
     <>
-      <div className=" pt-16  relative bg-[#FFFBEB]">
+      <div
+        className=" bg-cover bg-center pt-16  relative "
+        style={{ backgroundImage: "url('/img/about-bg.jpg')" }}
+      >
         <div className="container max-w-7xl px-4 mx-auto">
           <div className="container px-4 mx-auto mt-6">
             <Heading

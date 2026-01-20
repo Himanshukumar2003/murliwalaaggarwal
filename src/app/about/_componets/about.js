@@ -4,7 +4,10 @@ import { Store, ShoppingBag, Gift } from "lucide-react";
 export default function About() {
   return (
     <>
-      <div className=" bg-amber-50">
+      <div
+        className=" bg-cover bg-center relative "
+        style={{ backgroundImage: "url('/img/about-bg.jpg')" }}
+      >
         <div className="mx-auto max-w-7xl px-4 py-12 lg:px-8 lg:py-16">
           <div className="grid gap-12 lg:grid-cols-2 lg:gap-16 items-center">
             {/* Left Column - Image */}
@@ -97,7 +100,10 @@ export default function About() {
           </div>
         </div>
       </section>
-      <div className="bg-amber-50 section">
+      <div
+        className=" bg-cover bg-center py-12 relative "
+        style={{ backgroundImage: "url('/img/bg-2.jpg')" }}
+      >
         <div className="mx-auto max-w-7xl px-4 py-12 lg:px-8 lg:py-16">
           <div className="grid gap-12 lg:grid-cols-2 lg:gap-16 items-center">
             {/* Left Column - Image */}

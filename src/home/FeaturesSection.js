@@ -30,7 +30,10 @@ const features = [
 
 const FeaturesSection = () => {
   return (
-    <section className="py-12 px-4 ">
+    <section
+      className=" bg-cover bg-center py-16  relative  "
+      style={{ backgroundImage: "url('/img/bg-2.jpg')" }}
+    >
       <div className="max-w-7xl mx-auto">
         <Heading
           tag="Our Promise"

@@ -16,8 +16,7 @@ export default function Home() {
     <>
       <HeroSection />
       <AboutUs></AboutUs>
-      <FeaturesSection></FeaturesSection>
-      <div className="  mb-10  container px-4 max-w-7xl mx-auto">
+      <div className="  py-12 container max-w-7xl mx-auto">
         <Link href="/product">
           <Image
             src="/img/banner.png"
@@ -28,6 +27,8 @@ export default function Home() {
           ></Image>
         </Link>
       </div>
+      <FeaturesSection></FeaturesSection>
+
       <ProductSection></ProductSection>
 
       <Menu></Menu>
