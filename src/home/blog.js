@@ -32,7 +32,7 @@ export default function Blogs() {
     <section className="py-12   bg-[#FFFBEB]">
       <div className="mx-auto max-w-7xl px-4 lg:px-4 ">
         <h2 className="mb-12 text-center font-serif text-4xl  text-[#2d3e2f] lg:text-5xl">
-          Latest News
+          Latest Blogs
         </h2>
 
         <div className="grid gap-10 sm:grid-cols-2 lg:grid-cols-3">

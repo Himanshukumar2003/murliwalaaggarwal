@@ -118,7 +118,7 @@ export function FilterSidebar({
 
         {/* Price Display */}
         <div className="text-center text-base font-semibold text-primary mb-2">
-          ₹${price_from?.toLocaleString() ?? "0"} – ₹
+          ₹{price_from?.toLocaleString() ?? "0"} – ₹
           {price_to?.toLocaleString() ?? "0"}
         </div>
 

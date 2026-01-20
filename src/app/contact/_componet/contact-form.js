@@ -39,17 +39,26 @@ export function ContactForm() {
         <div className="grid lg:grid-cols-2 gap-12 items-center">
           {/* Left side - Message */}
           <div className="text-white">
-            <p className="text-sm opacity-70 mb-4">ASK US ANYTHING</p>
+            <p className="text-sm opacity-70 mb-4">GET IN TOUCH</p>
             <h2 className="text-4xl md:text-5xl font-bold mb-6 leading-tight">
               SHARE YOUR 📧 <br />
               MESSAGE & WE&apos;LL <br />
-              RESPOND
+              RESPOND PROMPTLY
             </h2>
             <p className="text-gray-300 mb-8 leading-relaxed">
-              Whether you have a question about our current exhibitions, are
-              interested in learning more about a specific artist, or simply
-              want to share your thoughts on contemporary art, we welcome your
-              message.
+              Whether you have questions about our courses, career guidance, or
+              any services we offer at Murliwala Aggarwal, we welcome your
+              message. Use the contact form or details on{" "}
+              <a
+                href="https://murliwala.bwdemo.in/"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="underline hover:text-green-400"
+              >
+                our website
+              </a>{" "}
+              to get in touch with us. Our team will respond promptly to assist
+              you.
             </p>
           </div>
 

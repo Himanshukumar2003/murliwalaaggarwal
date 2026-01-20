@@ -9,70 +9,90 @@ import {
 import { Button } from "@/components/ui/button";
 import Heading from "@/components/ui/heading";
 
-const faqData = [
+const leftFaqs = [
   {
-    q: "There are many bread brands out there, what makes yours special?",
-    a: "We use high-quality ingredients and traditional methods to create premium breads that stand out from the competition.",
+    q: "Do you offer customization for bhaji boxes and sweets?",
+    a: "Yes, we offer complete customization based on your occasion. You can choose the selection of sweets, box size, packaging style, and quantity as per weddings, poojas, festivals, or family functions.",
   },
   {
-    q: "Are you certified kosher?",
-    a: "Yes, all of our bread products are produced under kosher supervision.",
+    q: "Is there any minimum order quantity?",
+    a: "No, there is no minimum order quantity. You can place both small and bulk orders depending on your requirement.",
   },
   {
-    q: "What is the difference between your fresh and frozen breads?",
-    a: "Fresh breads are delivered daily, while frozen breads allow for longer storage without sacrificing quality.",
+    q: "Do you take orders from outside your city?",
+    a: "Yes, we accept orders from any location. Delivery options are planned based on distance, quantity, and product type to ensure freshness.",
   },
   {
-    q: "How do I become a fresh wholesale customer?",
-    a: "Contact our wholesale department and we’ll help set up your account.",
+    q: "How is the delivery process handled?",
+    a: "Once your order is confirmed, our team plans packaging and dispatch accordingly. For local orders, we ensure same-day or scheduled delivery. For outstation orders, safe and secure transport is arranged.",
   },
   {
-    q: "How can I purchase your frozen breads wholesale?",
-    a: "Frozen wholesale products can be ordered through our distribution partners.",
+    q: "How fresh are the sweets and bhaji items?",
+    a: "All sweets and bhaji items are prepared fresh using quality ingredients. We do not use artificial preservatives, ensuring authentic taste and purity.",
+  },
+];
+
+const rightFaqs = [
+  {
+    q: "Can I place bulk orders for weddings and large functions?",
+    a: "Absolutely. We regularly handle bulk orders for weddings, engagements, receptions, and community events with consistent quality and timely delivery.",
   },
   {
-    q: "Where are you located?",
-    a: "We operate from multiple bakeries nationwide. Contact us to find the nearest location.",
+    q: "How early should I place my order?",
+    a: "For regular orders, 1–2 days in advance is sufficient. For weddings and large functions, we recommend placing the order 7–10 days in advance for smooth planning and customization.",
+  },
+  {
+    q: "Are your products 100% vegetarian?",
+    a: "Yes, all our products are 100% vegetarian, prepared with strict hygiene standards.",
+  },
+  {
+    q: "How can I place an order?",
+    a: "You can place an order by contacting us directly through phone or WhatsApp, or by visiting our store. Our team will guide you through customization and delivery options.",
+  },
+  {
+    q: "Do you follow hygiene and quality standards?",
+    a: "Yes, we follow strict hygiene practices and quality checks at every stage to ensure safe, fresh, and premium products.",
   },
 ];
 
 export default function FAQ() {
   return (
-    <section className="w-full py-16 bg-amber-50">
-      <div className="container mx-auto px-6 max-w-7xl md:grid md:grid-cols-2 gap-10 ">
-        {/* LEFT SIDE */}
-        <div className="col-span-1">
-          <div className="lg:sticky top-[100px]">
-            <Heading
-              tag="Best Cakes"
-              title="Delicious Collections"
-              subtitle="Freshly baked everyday"
-              wrapperClass="py-10"
-              subtitleClass="text-gray-700"
-              className="text-left mb-4   "
-            />
+    <section className="w-full py-16 ">
+      <div className="container mx-auto px-6 max-w-7xl">
+        {/* HEADING */}
+        <Heading
+          tag="FAQs"
+          title="Bhaji Box & Sweets Questions"
+          subtitle="Everything you need to know before ordering"
+          wrapperClass="pb-12"
+          subtitleClass="text-gray-700"
+          className="text-center"
+        />
 
-            <Button
-              variant="outline"
-              className="relative mt-0 rounded-none min-h-[50px] uppercase bg-transparent border border-primary text-primary 
-            leading-normal inline-block text-center text-md font-semibold tracking-[0.32px] 
-            transition-all duration-500 ease-[cubic-bezier(0,.97,.43,1)] hover:border-primary 
-            hover:text-white hover:bg-primary"
-            >
-              BOOK A TABLE
-            </Button>
-          </div>
-        </div>
-
-        {/* RIGHT SIDE */}
-        <div className="col-span-1">
+        {/* FAQ GRID */}
+        <div className="grid md:grid-cols-2 gap-10">
+          {/* LEFT FAQs */}
           <Accordion type="single" collapsible className="w-full space-y-2">
-            {faqData.map((item, i) => (
-              <AccordionItem key={i} value={`item-${i + 1}`}>
-                <AccordionTrigger className="text-left text-2xl   font-[600]">
+            {leftFaqs.map((item, i) => (
+              <AccordionItem key={i} value={`left-${i}`}>
+                <AccordionTrigger className="text-left text-xl font-semibold">
                   {item.q}
                 </AccordionTrigger>
-                <AccordionContent className="text-lg">
+                <AccordionContent className="text-lg text-gray-700">
+                  {item.a}
+                </AccordionContent>
+              </AccordionItem>
+            ))}
+          </Accordion>
+
+          {/* RIGHT FAQs */}
+          <Accordion type="single" collapsible className="w-full space-y-2">
+            {rightFaqs.map((item, i) => (
+              <AccordionItem key={i} value={`right-${i}`}>
+                <AccordionTrigger className="text-left text-xl font-semibold">
+                  {item.q}
+                </AccordionTrigger>
+                <AccordionContent className="text-lg text-gray-700">
                   {item.a}
                 </AccordionContent>
               </AccordionItem>

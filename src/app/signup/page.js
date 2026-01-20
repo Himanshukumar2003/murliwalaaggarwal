@@ -17,6 +17,7 @@ import {
 import { Award, BookOpen, Eye, EyeOff, Lightbulb, Users } from "lucide-react";
 import Image from "next/image";
 import { toast } from "sonner";
+import { ChefHat, ShoppingBag, Gift, ShieldCheck } from "lucide-react";
 
 export default function SignupPage() {
   const [showPassword, setShowPassword] = useState(false);
@@ -266,57 +267,66 @@ export default function SignupPage() {
       </div>
 
       {/* Right Side - Educational Content */}
-      <div className="hidden flex-1 bg-gradient-to-r from-green-500 to-green-700 education-pattern lg:flex items-center justify-center p-8 text-white">
+      <div className="hidden flex-1 bg-gradient-to-r from-[#9D2B2C] to-[#c94b4b] education-pattern lg:flex items-center justify-center p-8 text-white">
         <div className="max-w-lg space-y-8">
           <div className="text-center space-y-4">
             <div className="inline-flex items-center justify-center w-16 h-16 bg-white/20 rounded-full backdrop-blur-sm">
-              <BookOpen className="w-8 h-8" />
+              <ChefHat className="w-8 h-8" />
             </div>
+
             <h2 className="text-3xl font-bold text-balance">
-              Transform Education with Technology
+              Swad Jo Yaadein Bana De
             </h2>
-            <p className="text-green-100 text-lg text-balance">
-              Helping schools & colleges establish skill development labs to
-              teach coding, AI, robotics & more
+
+            <p className="text-red-100 text-lg text-balance">
+              Murliwala offers a wide range of traditional namkeen, sweets and
+              premium gift packs crafted with love, purity and authentic Indian
+              taste.
             </p>
           </div>
 
           <div className="space-y-6">
             <div className="flex items-start gap-4">
               <div className="flex-shrink-0 w-10 h-10 bg-white/20 rounded-lg flex items-center justify-center backdrop-blur-sm">
-                <Users className="w-5 h-5" />
+                <ShoppingBag className="w-5 h-5" />
               </div>
               <div>
-                <h3 className="font-semibold text-lg">Faculty Training</h3>
-                <p className="text-green-100">
-                  Online faculty training and dedicated access for seeking
-                  clarifications
+                <h3 className="font-semibold text-lg">
+                  Freshly Prepared Products
+                </h3>
+                <p className="text-red-100">
+                  Daily prepared namkeen & sweets ensuring freshness, quality
+                  and unmatched taste.
                 </p>
               </div>
             </div>
 
             <div className="flex items-start gap-4">
               <div className="flex-shrink-0 w-10 h-10 bg-white/20 rounded-lg flex items-center justify-center backdrop-blur-sm">
-                <Award className="w-5 h-5" />
+                <Gift className="w-5 h-5" />
               </div>
               <div>
-                <h3 className="font-semibold text-lg">Grade-wise Books</h3>
-                <p className="text-green-100">
-                  Comprehensive books for students from Grade 1 to 12 following
-                  TIY approach
+                <h3 className="font-semibold text-lg">
+                  Perfect for Every Occasion
+                </h3>
+                <p className="text-red-100">
+                  Ideal gift boxes for weddings, festivals, corporate gifting
+                  and family celebrations.
                 </p>
               </div>
             </div>
 
             <div className="flex items-start gap-4">
               <div className="flex-shrink-0 w-10 h-10 bg-white/20 rounded-lg flex items-center justify-center backdrop-blur-sm">
-                <Lightbulb className="w-5 h-5" />
+                <ShieldCheck className="w-5 h-5" />
               </div>
               <div>
-                <h3 className="font-semibold text-lg">Skill Development</h3>
-                <p className="text-green-100">
-                  Wide usability span products with multi-language software
-                  support
+                <h3 className="font-semibold text-lg">
+                  Hygiene & Quality Assured
+                </h3>
+                <p className="text-red-100">
+                  Prepared with premium ingredients following strict hygiene and
+                  quality standards.
                 </p>
               </div>
             </div>

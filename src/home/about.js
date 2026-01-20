@@ -19,7 +19,7 @@ const marqueeItems = [
 export default function AboutUs() {
   return (
     <>
-      <div className="bg-amber-50 pt-16">
+      <div className=" pt-16  relative bg-[#FFFBEB]">
         <div className="container max-w-7xl px-4 mx-auto">
           <div className="container px-4 mx-auto mt-6">
             <Heading
@@ -56,11 +56,11 @@ export default function AboutUs() {
               {/* IMAGE CENTER */}
               <div className="order-1 relative lg:order-2 flex items-center">
                 <Image
-                  src="/img/about.png"
+                  src="/img/about-us.png"
                   alt="Sugar Town Bakery storefront"
                   width={500}
                   height={500}
-                  className="w-full max-h-[450px]"
+                  className="w-full max-h-[450px]  rounded-t-[200px]"
                 />
               </div>
 

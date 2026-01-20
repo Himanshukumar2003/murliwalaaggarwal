@@ -17,9 +17,9 @@ export default function Gallery() {
     <div className="bg-gray-50">
       <div className=" container py-16  max-w-7xl  mx-auto px-4">
         <Heading
-          tag="Sweet Treats"
-          title="Our Specialties"
-          subtitle=" Handcrafted with love and the finest ingredients"
+          tag="Gallery"
+          title="Our Sweet Gallery"
+          subtitle="Delicious Moments Captured in Flavours & Traditions"
           subtitleClass="text-gray-700"
         />
 

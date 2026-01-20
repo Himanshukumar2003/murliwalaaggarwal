@@ -26,14 +26,7 @@ export const allRoutes = [
     link: "/blog-page",
     roles: [],
   },
-  {
-    link: "/books",
-    roles: [],
-  },
-  {
-    link: "/books/:slug",
-    roles: [],
-  },
+
   {
     link: "/checkout",
     roles: [],
@@ -52,10 +45,6 @@ export const allRoutes = [
   },
   {
     link: "/product/:slug",
-    roles: [],
-  },
-  {
-    link: "/product-two/:slug",
     roles: [],
   },
 ];

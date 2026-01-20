@@ -4,13 +4,21 @@ import Image from "next/image";
 export default function Footer() {
   return (
     <footer
-      className="bg-secondary text-[#d4c5b9] py-16 px-8"
+      className="bg-primary text-[#d4c5b9] py-16 px-8  relative"
       style={{
         backgroundImage: "url('/img/bg-3.png')",
         backgroundSize: "cover",
+
         backgroundPosition: "center",
       }}
     >
+      <Image
+        src="/img/about-line.svg"
+        className=" bg:[#d4c5b9]    absolute w-full   -top-2   left-0 right-0 h-[40px] z-10 rotate-180"
+        width={100}
+        height={100}
+        alt="about"
+      ></Image>
       {/* Top Section */}
       <div className="  container px-4">
         <div className="grid  lg:grid-cols-3 gap-8 mb-12 ">

@@ -7,11 +7,12 @@ import { motion, AnimatePresence } from "framer-motion";
 import http from "@/utils/http";
 import { endpoints } from "@/utils/endpoints";
 import config from "@/config";
+import Link from "next/link";
 
 export default function MenuWithCategory() {
   const [activeCategory, setActiveCategory] = useState(null);
 
-  // PRODUCTS
+  // Fetch PRODUCTS
   const { data: products = [] } = useQuery({
     queryKey: ["products"],
     queryFn: async () => {
@@ -20,7 +21,7 @@ export default function MenuWithCategory() {
     },
   });
 
-  // CATEGORIES
+  // Fetch CATEGORIES
   const { data: categories = [] } = useQuery({
     queryKey: ["categories"],
     queryFn: async () => {
@@ -29,22 +30,18 @@ export default function MenuWithCategory() {
     },
   });
 
-  // FILTER PRODUCTS
+  // Filter products based on active category
   const filteredProducts = useMemo(() => {
-    let list = activeCategory
+    const list = activeCategory
       ? products.filter((p) => String(p.category_id) === String(activeCategory))
       : products;
-
-    return list.slice(0, 8);
+    return list.slice(0, 8); // show max 8 items
   }, [products, activeCategory]);
 
-  // ANIMATION VARIANTS
+  // Framer Motion variants
   const container = {
     hidden: { opacity: 0 },
-    show: {
-      opacity: 1,
-      transition: { staggerChildren: 0.12 },
-    },
+    show: { opacity: 1, transition: { staggerChildren: 0.12 } },
   };
 
   const item = {
@@ -71,14 +68,15 @@ export default function MenuWithCategory() {
           viewport={{ once: true }}
           className="mb-12 text-center text-white"
         >
-          <p className="text-sm uppercase tracking-wider text-white/70">
+          <h2 className="font-serif text-4xl lg:text-5xl">
+            {" "}
             Taste the best that surprise you
-          </p>
-          <h2 className="font-serif text-4xl lg:text-5xl">Our Special Menu</h2>
+          </h2>
         </motion.div>
 
-        <div className="grid gap-8 lg:grid-cols-[300px_1fr]">
-          {/* LEFT: CATEGORY MENU */}
+        {/* GRID LAYOUT */}
+        <div className="grid gap-8 lg:grid-cols-[minmax(280px,1fr)_3fr]">
+          {/* CATEGORY MENU */}
           <motion.div
             initial={{ opacity: 0, x: -30 }}
             whileInView={{ opacity: 1, x: 0 }}
@@ -86,7 +84,7 @@ export default function MenuWithCategory() {
             viewport={{ once: true }}
             className="rounded-lg bg-[#e8dcc8] p-8"
           >
-            <nav className="space-y-6">
+            <nav className="grid gap-4">
               <motion.button
                 layout
                 onClick={() => setActiveCategory(null)}
@@ -118,46 +116,58 @@ export default function MenuWithCategory() {
             </nav>
           </motion.div>
 
-          {/* RIGHT: MENU ITEMS */}
-          <AnimatePresence mode="wait">
-            <motion.div
-              key={activeCategory ?? "all"}
-              variants={container}
-              initial="hidden"
-              animate="show"
-              exit="hidden"
-              className="flex flex-wrap gap-6"
-            >
+          {/* MENU ITEMS */}
+          {/* MENU ITEMS */}
+
+          {/* MENU ITEMS */}
+          <motion.div
+            variants={container}
+            initial="hidden"
+            animate="show"
+            className="grid grid-cols-1 lg:grid-cols-2 gap-6"
+          >
+            <AnimatePresence>
               {filteredProducts.map((itemData) => (
                 <motion.div
                   key={itemData.id}
                   variants={item}
-                  className="flex w-full sm:w-[48%] items-start gap-4 group"
+                  initial="hidden"
+                  animate="show"
+                  exit="hidden"
+                  className="group flex gap-4"
+                  layout
                 >
-                  <div className="relative h-16 w-16 shrink-0 overflow-hidden rounded-full">
-                    <Image
-                      src={`${config.file_base}${itemData.pictures?.[0]}`}
-                      alt={itemData.title}
-                      fill
-                      className="object-cover transition-transform duration-300 group-hover:scale-110"
-                    />
-                  </div>
-
-                  <div className="flex-1 text-white">
-                    <div className="flex justify-between gap-2">
-                      <h3 className="font-serif text-lg">{itemData.title}</h3>
-                      <span className="font-serif text-lg">
-                        ₹{itemData.price}
-                      </span>
+                  <Link
+                    href={`/product/${itemData.slug}`}
+                    className="flex gap-4 w-full"
+                  >
+                    <div className="relative h-16 w-16 shrink-0 overflow-hidden rounded-full">
+                      <Image
+                        src={`${config.file_base}${itemData.pictures?.[0]}`}
+                        alt={itemData.title}
+                        fill
+                        className="object-cover transition-transform duration-300 group-hover:scale-110"
+                      />
                     </div>
-                    <p className="text-sm text-white/60 line-clamp-2">
-                      {itemData.description}
-                    </p>
-                  </div>
+
+                    <div className="flex-1 text-white">
+                      <div className="flex items-start justify-between gap-3">
+                        <h3 className="font-serif text-lg leading-snug">
+                          {itemData.title}
+                        </h3>
+                        <span className="font-serif text-lg whitespace-nowrap">
+                          ₹{itemData.price}
+                        </span>
+                      </div>
+                      <p className="mt-1 text-sm text-white/60 line-clamp-2">
+                        {itemData.description}
+                      </p>
+                    </div>
+                  </Link>
                 </motion.div>
               ))}
-            </motion.div>
-          </AnimatePresence>
+            </AnimatePresence>
+          </motion.div>
         </div>
       </div>
     </section>

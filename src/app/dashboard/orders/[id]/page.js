@@ -46,7 +46,7 @@ export default function OrderDetailsPage({}) {
     queryFn: () => getOrder(id),
   });
 
-  console.log("orders:", data);
+  // console.log("orders:", data);
   if (isLoading) return <Loader></Loader>;
   if (isError) return <p className="p-6 text-red-500">{error.message}</p>;
 
@@ -61,7 +61,7 @@ export default function OrderDetailsPage({}) {
   const currentStatusIndex = STATUS_STEPS.findIndex(
     (step) => step.label.toLowerCase() === currentStatus?.toLowerCase()
   );
-  console.log(currentStatus);
+  // console.log(currentStatus);
 
   const handleDownloadInvoice = () => {
     alert("Invoice download demo! Implement actual PDF download here.");

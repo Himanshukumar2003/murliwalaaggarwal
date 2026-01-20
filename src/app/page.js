@@ -9,6 +9,7 @@ import ProductSection from "@/home/product";
 import VideoSwiper from "@/home/reel";
 import TestimonialCard from "@/home/testimonials";
 import Image from "next/image";
+import Link from "next/link";
 
 export default function Home() {
   return (
@@ -16,17 +17,19 @@ export default function Home() {
       <HeroSection />
       <AboutUs></AboutUs>
       <FeaturesSection></FeaturesSection>
-
-      <ProductSection></ProductSection>
       <div className="  mb-10  container px-4 max-w-7xl mx-auto">
-        <Image
-          src="/img/banner.png"
-          alt="banner"
-          width={2000}
-          height={2000}
-          className="w-full   object-contain h-auto rounded-t-lg"
-        ></Image>
+        <Link href="/product">
+          <Image
+            src="/img/banner.png"
+            alt="banner"
+            width={2000}
+            height={2000}
+            className="w-full   object-contain h-auto rounded-t-lg"
+          ></Image>
+        </Link>
       </div>
+      <ProductSection></ProductSection>
+
       <Menu></Menu>
       <VideoSwiper></VideoSwiper>
       <Gallery></Gallery>

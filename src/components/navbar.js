@@ -59,7 +59,7 @@ export default function Header() {
             href="/product"
             className="text-[16px] uppercase font-semibold hover:text-neutral-600"
           >
-            Our Sweets
+            All Products
           </Link>
 
           <Link
@@ -182,7 +182,7 @@ hover:scale-105 transition-all duration-300"
             onClick={() => setOpenMenu(false)}
             className="text-lg font-semibold"
           >
-            Our Sweets
+            All Products
           </Link>
 
           <Link

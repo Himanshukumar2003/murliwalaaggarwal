@@ -22,7 +22,7 @@ export async function GET(request) {
     const newTokenData = await http().post(endpoints.auth.refresh, {
       refresh_token,
     });
-    console.log({ newTokenData });
+    // console.log({ newTokenData });
     if (!newTokenData) {
       cookieStore.delete("token");
       cookieStore.delete("refresh_token");

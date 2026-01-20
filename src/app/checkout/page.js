@@ -37,8 +37,8 @@ export const addressSchema = z.object({
   house: z.string().min(1, "House Nubher is required"),
   city: z.string().min(1, "City is required"),
   state: z.string().min(1, "State is required"),
-  postal_code: z.string().min(3, "Postal code is required"),
-  phone: z.string().min(6).optional(),
+  postal_code: z.string().min(6, "Postal code is required"),
+  phone: z.string().min(10).optional(),
 });
 
 export const orderItemSchema = z.object({
@@ -158,7 +158,7 @@ export default function CheckoutPage() {
     });
   };
 
-  console.log(cartItems);
+  // console.log(cartItems);
 
   return (
     <div className="py-20 bg-blue-50">
@@ -239,9 +239,10 @@ export default function CheckoutPage() {
                   </Dialog>
                 </div>
 
-                <button type="submit" className="btn">
-                  Checkout
-                </button>
+                <div>
+                  {" "}
+                  <Button type="submit">Checkout</Button>
+                </div>
               </div>
             </div>
 

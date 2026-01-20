@@ -3,6 +3,8 @@ import { useState } from "react";
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
+import { Store, Package, Gift, Heart } from "lucide-react";
+
 import { Label } from "@/components/ui/label";
 import {
   Card,
@@ -169,57 +171,59 @@ export default function LoginPage() {
       </div>
 
       {/* Right Side - Educational Content */}
-      <div className="hidden min-h-[100vh] flex-1 bg-gradient-to-r from-green-500 to-green-700 education-pattern lg:flex items-center justify-center p-8 text-white">
+      <div className="hidden min-h-[100vh] flex-1 bg-gradient-to-r from-[#9D2B2C] to-[#c94b4b] education-pattern lg:flex items-center justify-center p-8 text-white">
         <div className="max-w-lg space-y-8">
           <div className="text-center space-y-4">
             <div className="inline-flex items-center justify-center w-16 h-16 bg-white/20 rounded-full backdrop-blur-sm">
-              <BookOpen className="w-8 h-8" />
+              <Store className="w-8 h-8" />
             </div>
+
             <h2 className="text-3xl font-bold text-balance">
-              Transform Education with Technology
+              Shuddh Swad, Paramparik Mithas
             </h2>
-            <p className="text-green-100 text-lg text-balance">
-              Helping schools & colleges establish skill development labs to
-              teach coding, AI, robotics & more
+
+            <p className="text-red-100 text-lg text-balance">
+              Murliwala brings you premium quality namkeen, sweets & festive
+              gift boxes made with traditional recipes and pure ingredients.
             </p>
           </div>
 
           <div className="space-y-6">
             <div className="flex items-start gap-4">
               <div className="flex-shrink-0 w-10 h-10 bg-white/20 rounded-lg flex items-center justify-center backdrop-blur-sm">
-                <Users className="w-5 h-5" />
+                <Package className="w-5 h-5" />
               </div>
               <div>
-                <h3 className="font-semibold text-lg">Faculty Training</h3>
-                <p className="text-green-100">
-                  Online faculty training and dedicated access for seeking
-                  clarifications
+                <h3 className="font-semibold text-lg">Premium Namkeen Range</h3>
+                <p className="text-red-100">
+                  Freshly prepared namkeen with authentic taste, perfect for
+                  every occasion.
                 </p>
               </div>
             </div>
 
             <div className="flex items-start gap-4">
               <div className="flex-shrink-0 w-10 h-10 bg-white/20 rounded-lg flex items-center justify-center backdrop-blur-sm">
-                <Award className="w-5 h-5" />
+                <Gift className="w-5 h-5" />
               </div>
               <div>
-                <h3 className="font-semibold text-lg">Grade-wise Books</h3>
-                <p className="text-green-100">
-                  Comprehensive books for students from Grade 1 to 12 following
-                  TIY approach
+                <h3 className="font-semibold text-lg">Festive Gift Boxes</h3>
+                <p className="text-red-100">
+                  Beautifully packed sweet & namkeen boxes ideal for weddings,
+                  festivals & celebrations.
                 </p>
               </div>
             </div>
 
             <div className="flex items-start gap-4">
               <div className="flex-shrink-0 w-10 h-10 bg-white/20 rounded-lg flex items-center justify-center backdrop-blur-sm">
-                <Lightbulb className="w-5 h-5" />
+                <Heart className="w-5 h-5" />
               </div>
               <div>
-                <h3 className="font-semibold text-lg">Skill Development</h3>
-                <p className="text-green-100">
-                  Wide usability span products with multi-language software
-                  support
+                <h3 className="font-semibold text-lg">Pure & Hygienic</h3>
+                <p className="text-red-100">
+                  Made using high-quality ingredients with strict hygiene and
+                  quality standards.
                 </p>
               </div>
             </div>

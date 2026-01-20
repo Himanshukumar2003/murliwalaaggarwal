@@ -13,6 +13,5 @@ export default async function BookPage({ params }) {
   if (!data?.data) return <div>Not Found</div>;
 
   const product = data.data;
-  console.log(product);
   return <ProductPage product={product} />;
 }
