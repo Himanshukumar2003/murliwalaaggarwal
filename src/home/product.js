@@ -30,7 +30,6 @@ export default function ProductSection() {
     <section className="py-16 px-4">
       <div className="max-w-7xl mx-auto">
         <Heading
-          tag="Sweet Treats"
           title="Our Specialties"
           subtitle="Handcrafted with love and the finest ingredients"
         />

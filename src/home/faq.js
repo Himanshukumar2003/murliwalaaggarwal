@@ -61,7 +61,6 @@ export default function FAQ() {
       <div className="container mx-auto px-6 max-w-7xl">
         {/* HEADING */}
         <Heading
-          tag="FAQs"
           title="Bhaji Box & Sweets Questions"
           subtitle="Everything you need to know before ordering"
           wrapperClass="pb-12"

@@ -1,7 +1,7 @@
 import { Breadcrumb } from "@/components/breadcrumb";
-import { ContactForm } from "./_componet/contact-form";
-import { ContactSection } from "./_componet/contact-section";
-import { TestimonialsSection } from "./_componet/testimonials-section";
+import { ContactForm } from "./_components/contact-form";
+import { ContactSection } from "./_components/contact-section";
+import { TestimonialsSection } from "./_components/testimonials-section";
 
 export default function Contact() {
   return (

@@ -36,7 +36,6 @@ const FeaturesSection = () => {
     >
       <div className="max-w-7xl mx-auto">
         <Heading
-          tag="Our Promise"
           title="Purity You Can Trust"
           subtitle="  Every product is crafted with intention, using only the finest
             natural ingredients for your wellbeing."

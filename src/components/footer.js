@@ -29,9 +29,8 @@ export default function Footer() {
             </h3>
             <div className="space-y-3">
               <p className="text-sm leading-relaxed">
-                2972 Westheimer Rd. Santa Ana,
-                <br />
-                Illinois 85486
+                Opp. Shaheed Vijender Singh Statue, <br></br> 61/B Molarband,
+                Badarpur, New Delhi 110044
               </p>
               <p className="text-sm">
                 <a
@@ -43,10 +42,10 @@ export default function Footer() {
               </p>
               <p className="text-sm">
                 <a
-                  href="mailto:sugartown@example.com"
+                  href="mailto:info@murliwalaaggarwal.com"
                   className="hover:text-[#f5e6e0] transition"
                 >
-                  Sugartown@example.com
+                  info@murliwalaaggarwal.com
                 </a>
               </p>
             </div>

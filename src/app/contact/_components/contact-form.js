@@ -6,6 +6,7 @@ import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
+import Link from "next/link";
 
 export function ContactForm() {
   const [formData, setFormData] = useState({
@@ -49,14 +50,14 @@ export function ContactForm() {
               Whether you have questions about our courses, career guidance, or
               any services we offer at Murliwala Aggarwal, we welcome your
               message. Use the contact form or details on{" "}
-              <a
-                href="https://murliwala.bwdemo.in/"
+              <Link
+                href="/"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="underline hover:text-green-400"
               >
                 our website
-              </a>{" "}
+              </Link>{" "}
               to get in touch with us. Our team will respond promptly to assist
               you.
             </p>
