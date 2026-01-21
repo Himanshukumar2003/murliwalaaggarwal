@@ -37,7 +37,7 @@ export default function Footer() {
                   href="tel:(702)555-0122"
                   className="hover:text-[#f5e6e0] transition"
                 >
-                  (702) 555-0122
+                  83683 25656
                 </a>
               </p>
               <p className="text-sm">

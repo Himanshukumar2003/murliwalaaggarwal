@@ -17,42 +17,6 @@ export function TestimonialsSection() {
               inquiries, we welcome your message and will get back to you
               promptly.
             </p>
-
-            <div className="space-y-4 border-t-2 border-green-500 pt-4">
-              <p className="text-sm font-medium text-green-900">
-                Join Our Community*
-              </p>
-              <div className="flex items-center gap-3">
-                <div className="flex -space-x-2">
-                  <Avatar className="w-8 h-8 border-2 border-white">
-                    <AvatarImage src="/images/hero-1.png" />
-                    <AvatarFallback className="bg-green-500 text-white">
-                      M1
-                    </AvatarFallback>
-                  </Avatar>
-                  <Avatar className="w-8 h-8 border-2 border-white">
-                    <AvatarImage src="/images/hero-2.png" />
-                    <AvatarFallback className="bg-green-600 text-white">
-                      M2
-                    </AvatarFallback>
-                  </Avatar>
-                  <Avatar className="w-8 h-8 border-2 border-white">
-                    <AvatarImage src="/images/hero-3.png" />
-                    <AvatarFallback className="bg-green-700 text-white">
-                      M3
-                    </AvatarFallback>
-                  </Avatar>
-                </div>
-                <div>
-                  <p className="text-sm font-medium text-green-900">
-                    Over 500 students
-                  </p>
-                  <p className="text-xs text-green-600">
-                    have joined our community
-                  </p>
-                </div>
-              </div>
-            </div>
           </div>
 
           {/* Right side - Testimonial */}

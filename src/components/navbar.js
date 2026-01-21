@@ -74,13 +74,15 @@ export default function Header() {
 
         {/* CENTER LOGO */}
         <div className=" h-[40px] flex justify-center   items-center">
-          <Image
-            src="/logo.png"
-            alt="LOGO"
-            width={500}
-            height={100}
-            className="w-[160px] h-auto"
-          />
+          <Link href="/">
+            <Image
+              src="/logo.png"
+              alt="LOGO"
+              width={500}
+              height={100}
+              className="w-[160px] h-auto"
+            />
+          </Link>
         </div>
 
         {/* RIGHT ACTIONS */}
