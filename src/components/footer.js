@@ -20,7 +20,7 @@ export default function Footer() {
         alt="about"
       ></Image>
       {/* Top Section */}
-      <div className="  container px-4">
+      <div className="  container mx-auto px-4">
         <div className="grid  lg:grid-cols-3 gap-8 mb-12 ">
           {/* Contact Us */}
           <div className="text-center">
@@ -146,7 +146,7 @@ export default function Footer() {
 
             {/* Copyright */}
             <div className="text-sm text-center md:text-right">
-              murliwalaaggarwal | Design & Developed By{" "}
+              Murliwalaaggarwal | Design & Developed By{" "}
               <a
                 href="https://brandingwaale.com/"
                 target="_black"
