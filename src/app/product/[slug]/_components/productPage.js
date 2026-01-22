@@ -136,24 +136,13 @@ export default function ProductPage({ product }) {
 
   return (
     <>
-      <main className=" bg-background pt-20 overflow-visible">
-        <div className="max-w-7xl mx-auto px-4 py-8 lg:py-12 overflow-visible">
+      <main className=" bg-background py-12 overflow-visible">
+        <div className="max-w-7xl mx-auto overflow-visible">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-12 overflow-visible">
             {/* ================= LEFT IMAGES ================= */}
-            <div className="flex flex-col gap-4 lg:sticky lg:top-[120px] lg:self-start">
-              <div className="relative bg-muted rounded-lg overflow-hidden aspect-square flex items-center justify-center ">
-                <Image
-                  src={pictures[selectedImage] || "/placeholder.svg"}
-                  alt="product-main-img"
-                  width={500}
-                  height={500}
-                  className="w-full h-full object-cover "
-                  priority
-                />
-              </div>
-
-              {/* Thumbnails */}
-              <div className="flex gap-3 overflow-x-auto pb-2">
+            <div className="flex gap-4 lg:sticky lg:top-[120px] lg:self-start">
+              {/* LEFT THUMBNAILS */}
+              <div className="flex lg:flex-col gap-3 overflow-x-auto lg:overflow-y-auto lg:max-h-[500px]">
                 {pictures.map((thumb, index) => (
                   <button
                     key={index}
@@ -174,6 +163,18 @@ export default function ProductPage({ product }) {
                   </button>
                 ))}
               </div>
+
+              {/* RIGHT MAIN IMAGE */}
+              <div className="relative bg-muted rounded-lg overflow-hidden aspect-square flex-1">
+                <Image
+                  src={pictures[selectedImage] || "/placeholder.svg"}
+                  alt="product-main-img"
+                  width={500}
+                  height={500}
+                  className="w-full h-full object-cover"
+                  priority
+                />
+              </div>
             </div>
 
             {/* ================= RIGHT CONTENT ================= */}
@@ -187,10 +188,7 @@ export default function ProductPage({ product }) {
               {/* Price */}
               <div className="flex items-center gap-3">
                 <span className="text-3xl italic text-secondary">
-                  ₹{product.price}{" "}
-                  <span className="text-sm text-primary">
-                    / {product.weight} {product.weight_unit}
-                  </span>
+                  ₹{product.price}
                 </span>
               </div>
 
@@ -214,7 +212,14 @@ export default function ProductPage({ product }) {
                     {product.sku}
                   </span>
                 </div>
-
+                <div className="flex justify-between py-2 border-b border-stone-200">
+                  <span className="text-stone-600">Net wt.</span>
+                  <span className="font-medium text-stone-900">
+                    <span className="text-sm text-primary">
+                      {product.weight} {product.weight_unit}
+                    </span>
+                  </span>
+                </div>
                 {product.tags?.length > 0 && (
                   <div className="pt-2">
                     <p className="text-stone-600 mb-2">Tags:</p>
@@ -478,6 +483,14 @@ export default function ProductPage({ product }) {
           </div>
         </div>
       </main>
+
+      <Image
+        src="/img/product-mid.png"
+        alt="banner"
+        width={2000}
+        height={2000}
+        className="w-full   object-contain h-auto rounded-t-lg"
+      ></Image>
       <RelatedProducts
         categoryId={product.category_id}
         currentProductId={product.id}

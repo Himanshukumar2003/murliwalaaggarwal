@@ -12,13 +12,16 @@ export default function About() {
           <div className="grid gap-12 lg:grid-cols-2 lg:gap-16 items-center">
             {/* Left Column - Image */}
             <div className="relative  overflow-hidden rounded-lg">
-              <Image
-                src="/img/product2.JPG"
-                alt="about us"
-                width={500}
-                height={500}
-                className="w-full object-cover max-h-[500px]"
-              />
+              <video
+                className="w-full lg:h-[500px] object-cover"
+                autoPlay
+                loop
+                muted
+                playsInline
+              >
+                <source src="/video/murliwala.mp4" type="video/mp4" />
+                Your browser does not support the video tag.
+              </video>
             </div>
 
             {/* Right Column - Content */}
@@ -57,45 +60,35 @@ export default function About() {
           <div className="grid grid-cols-2 gap-8 lg:grid-cols-4 lg:gap-12">
             <div className="text-center">
               <div className="font-serif text-6xl text-[#b89968] lg:text-7xl">
-                115
+                10k+
               </div>
               <h3 className="mt-4 font-serif text-xl text-[#2d3e2f]">
-                Clients
+                Happy Customers
               </h3>
-              <p className="mt-2 text-sm italic leading-relaxed text-[#5a6b5c]">
-                Male suada pellentes que elit eget gravida cum sociis.
-              </p>
             </div>
             <div className="text-center">
               <div className="font-serif text-6xl text-[#b89968] lg:text-7xl">
-                45
+                250+
               </div>
               <h3 className="mt-4 font-serif text-xl text-[#2d3e2f]">
-                Employees
+                Workforce
               </h3>
-              <p className="mt-2 text-sm italic leading-relaxed text-[#5a6b5c]">
-                Male suada pellentes que elit eget gravida cum sociis.
-              </p>
             </div>
             <div className="text-center">
               <div className="font-serif text-6xl text-[#b89968] lg:text-7xl">
-                25
+                5+
               </div>
               <h3 className="mt-4 font-serif text-xl text-[#2d3e2f]">
-                Locations
+                Outlets
               </h3>
-              <p className="mt-2 text-sm italic leading-relaxed text-[#5a6b5c]">
-                Male suada pellentes que elit eget gravida cum sociis.
-              </p>
             </div>
             <div className="text-center">
               <div className="font-serif text-6xl text-[#b89968] lg:text-7xl">
-                89
+                200+
               </div>
-              <h3 className="mt-4 font-serif text-xl text-[#2d3e2f]">Cakes</h3>
-              <p className="mt-2 text-sm italic leading-relaxed text-[#5a6b5c]">
-                Male suada pellentes que elit eget gravida cum sociis.
-              </p>
+              <h3 className="mt-4 font-serif text-xl text-[#2d3e2f]">
+                Product Range
+              </h3>
             </div>
           </div>
         </div>

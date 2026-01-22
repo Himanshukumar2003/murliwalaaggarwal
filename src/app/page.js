@@ -19,7 +19,7 @@ export default function Home() {
       <div className="  py-12 container max-w-7xl mx-auto">
         <Link href="/product">
           <Image
-            src="/img/banner.png"
+            src="/img/about-bttom.png"
             alt="banner"
             width={2000}
             height={2000}

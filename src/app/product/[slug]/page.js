@@ -1,3 +1,5 @@
+import Image from "next/image";
+import ProductActionBar from "../_components/product-slider";
 import ProductPage from "./_components/productPage";
 
 export default async function BookPage({ params }) {
@@ -13,5 +15,18 @@ export default async function BookPage({ params }) {
   if (!data?.data) return <div>Not Found</div>;
 
   const product = data.data;
-  return <ProductPage product={product} />;
+  return (
+    <>
+      {" "}
+      <Image
+        src="/img/product-top.png"
+        alt="banner"
+        width={2000}
+        height={2000}
+        className="w-full   object-contain h-auto rounded-t-lg"
+      ></Image>
+      <ProductActionBar product={product}></ProductActionBar>
+      <ProductPage product={product} />
+    </>
+  );
 }
