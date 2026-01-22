@@ -78,6 +78,10 @@ export default function ProductPage({ product }) {
     }
   }, [cartItems]);
 
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
+
   // 🧠 Automatically handle out-of-stock and over-quantity items
   useEffect(() => {
     if (!cartItems?.length) return;
