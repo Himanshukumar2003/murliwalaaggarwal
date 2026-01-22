@@ -20,7 +20,7 @@ export default function AboutUs() {
   return (
     <>
       <div
-        className=" bg-cover bg-center pt-16  relative  -mt-[100px]"
+        className=" bg-cover bg-center pt-16  relative  "
         style={{ backgroundImage: "url('/img/about-bg.jpg')" }}
       >
         <div className="container max-w-7xl px-4 mx-auto">
