@@ -14,7 +14,7 @@ export default function Footer() {
     >
       <Image
         src="/img/about-line.svg"
-        className=" bg:[#d4c5b9]    absolute w-full   -top-2   left-0 right-0 h-[40px] z-10 rotate-180"
+        className=" bg:[#d4c5b9]    absolute w-full  -md:18px  lg:-top-2   left-0 right-0 h-[40px] z-10 rotate-180"
         width={100}
         height={100}
         alt="about"
@@ -100,13 +100,6 @@ export default function Footer() {
                     aria-label="LinkedIn"
                   >
                     <Linkedin size={20} />
-                  </a>
-                  <a
-                    href="https://tripadvisor.com"
-                    className="hover:text-[#f5e6e0] transition"
-                    aria-label="TripAdvisor"
-                  >
-                    <Eye size={20} />
                   </a>
                 </div>
               </div>

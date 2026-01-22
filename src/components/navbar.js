@@ -144,7 +144,7 @@ hover:scale-105 transition-all duration-300"
             ) : (
               <Link
                 href="/login"
-                className="btn !mt-0 flex gap-2  items-center hidden lg:flex"
+                className="btn !mt-0  gap-2  items-center hidden lg:flex"
               >
                 Login
               </Link>
