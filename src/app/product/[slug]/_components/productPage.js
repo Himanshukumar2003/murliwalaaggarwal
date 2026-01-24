@@ -29,14 +29,18 @@ import Link from "next/link";
 import { useAuth } from "@/providers/auth-provider";
 import RelatedProducts from "./relativeProduct";
 import { ProductDetails } from "./ProductDetails";
+import ProductActionBar from "../../_components/product-slider";
 
-export default function ProductPage({ product }) {
+export default function ProductPage({ product, price }) {
+  console.log({ product });
   const [selectedImage, setSelectedImage] = useState(0);
   const [bagPrint, setBagPrint] = useState(false);
   const [bagPrintText, setBagPrintText] = useState("");
   const [frontPrint, setFrontPrint] = useState(false);
   const [frontPrintText, setFrontPrintText] = useState("");
   const [frontPrintType, setFrontPrintType] = useState("paper_cut");
+  // const [updatedPrice, setUpdatedPrice] = useState(product.price);
+
   const queryClient = useQueryClient();
 
   const { user } = useAuth();
@@ -128,8 +132,17 @@ export default function ProductPage({ product }) {
     product.sections?.map((section) => ({
       section: section.section,
       sweet: section.sweets[0].title,
+      price: section.sweets[0].price,
     })) ?? []
   );
+
+  const updatedPrice = useMemo(() => {
+    const selectedSectionsPrice = selectedSections
+      .map((s) => s.price)
+      .reduce((accu, curr) => accu + curr, 0);
+
+    return product.price + selectedSectionsPrice;
+  }, [selectedSections, product]);
 
   const [openDropdown, setOpenDropdown] = useState(null);
   // console.log("Selected Sections:", selectedSections);
@@ -146,7 +159,7 @@ export default function ProductPage({ product }) {
             {/* ================= LEFT IMAGES ================= */}
             <div className="flex flex-col lg:flex-row gap-4 lg:sticky lg:top-[120px] lg:self-start">
               {/* MAIN IMAGE */}
-              <div className="order-1 lg:order-2 relative bg-muted rounded-lg overflow-hidden aspect-square flex-1 w-full h-[450px]">
+              <div className="order-1 lg:order-2 relative bg-muted rounded-lg overflow-hidden aspect-square flex-1 w-full h-[400px]">
                 <Image
                   src={pictures[selectedImage] || "/placeholder.svg"}
                   alt="product-main-img"
@@ -191,8 +204,11 @@ export default function ProductPage({ product }) {
 
               {/* Price */}
               <div className="flex items-center gap-3">
+                {/* <span className="text-3xl italic text-secondary">
+                  ₹{product.updatedPrice}
+                </span> */}
                 <span className="text-3xl italic text-secondary">
-                  ₹{product.price}
+                  ₹{updatedPrice}
                 </span>
               </div>
 
@@ -283,10 +299,15 @@ export default function ProductPage({ product }) {
                                 setSelectedSections((prev) =>
                                   prev.map((p) =>
                                     p.section === section.section
-                                      ? { ...p, sweet: swt.title }
+                                      ? {
+                                          ...p,
+                                          sweet: swt.title,
+                                          price: swt.price,
+                                        }
                                       : p
                                   )
                                 );
+                                // setUpdatedPrice(product.price + swt.price);
                                 setOpenDropdown(null);
                               }}
                               className="cursor-pointer p-3 rounded-lg hover:bg-secondary hover:text-white transition-all"
@@ -427,6 +448,7 @@ export default function ProductPage({ product }) {
                           mutate({
                             id: isAddedToCart.id,
                             quantity: isAddedToCart.quantity - 1,
+                            product_price: updatedPrice,
                           })
                         }
                       >
@@ -449,6 +471,7 @@ export default function ProductPage({ product }) {
                           mutate({
                             id: isAddedToCart.id,
                             quantity: isAddedToCart.quantity + 1,
+                            product_price: updatedPrice,
                           })
                         }
                       >
@@ -466,7 +489,7 @@ export default function ProductPage({ product }) {
                   </div>
                 ) : (
                   <AddToCartButtonProduct
-                    product={product}
+                    product={{ ...product, product_price: updatedPrice }}
                     sections={selectedSections}
                     bag_print={bagPrint ? { text: bagPrintText || null } : null}
                     print_sticker_on_box={
@@ -482,12 +505,11 @@ export default function ProductPage({ product }) {
               </div>
 
               {/* Delivery Info */}
-              <ProductDetails></ProductDetails>
             </div>
           </div>
         </div>
       </main>
-
+      <ProductActionBar product={product} price={updatedPrice} />
       <Image
         src="/img/product-mid.png"
         alt="banner"

@@ -5,7 +5,7 @@ import Image from "next/image";
 import config from "@/config";
 import { Minus, Plus } from "lucide-react";
 
-export default function ProductActionBar({ product }) {
+export default function ProductActionBar({ product }, updatedPrice) {
   const [showBar, setShowBar] = useState(false);
   const [quantity, setQuantity] = useState(1);
 
@@ -40,7 +40,7 @@ export default function ProductActionBar({ product }) {
                 {product.title}
               </h3>
               <span className="text-primary font-bold text-lg">
-                ₹{product.price}
+                ₹{updatedPrice}
               </span>
             </div>
           </div>
@@ -69,13 +69,6 @@ export default function ProductActionBar({ product }) {
 
           {/* RIGHT : CTA Buttons */}
           <div className="flex items-center gap-3 w-full md:w-auto">
-            <button
-              className="flex-1 md:flex-none border border-primary text-primary px-6 py-2 rounded-lg font-semibold
-              hover:bg-primary hover:text-white transition-all"
-            >
-              Add to Cart
-            </button>
-
             <button
               className="flex-1 md:flex-none bg-primary text-white px-6 py-2 rounded-lg font-semibold
               hover:bg-primary/90 transition-all"
