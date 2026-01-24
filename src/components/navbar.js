@@ -142,12 +142,16 @@ hover:scale-105 transition-all duration-300"
                 </DropdownMenuContent>
               </DropdownMenu>
             ) : (
-              <Link
-                href="/login"
-                className="btn !mt-0  gap-2  items-center hidden lg:flex"
-              >
-                Login
-              </Link>
+              <>
+                <div className="hidden lg:flex">
+                  <Link
+                    href="/login"
+                    className=" !mt-0  gap-2  items-center  !lg:flex btn"
+                  >
+                    Login
+                  </Link>
+                </div>
+              </>
             )}
 
             <button
@@ -219,7 +223,7 @@ hover:scale-105 transition-all duration-300"
               <Link
                 href="/login"
                 onClick={() => setOpenMenu(false)}
-                className="btn flex gap-2 items-center"
+                className="btn  flex gap-2 items-center"
               >
                 Login
               </Link>

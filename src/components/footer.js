@@ -14,7 +14,7 @@ export default function Footer() {
     >
       <Image
         src="/img/about-line.svg"
-        className=" bg:[#d4c5b9]    absolute w-full  -md:18px  lg:-top-2   left-0 right-0 h-[40px] z-10 rotate-180"
+        className=" bg:[#d4c5b9]    absolute w-full top-[-17px]  lg:-top-2   left-0 right-0 h-[40px] z-10 rotate-180"
         width={100}
         height={100}
         alt="about"

@@ -141,12 +141,24 @@ export default function ProductPage({ product }) {
   return (
     <>
       <main className=" bg-background py-12 overflow-visible">
-        <div className="max-w-7xl mx-auto overflow-visible">
+        <div className="max-w-7xl px-4 mx-auto overflow-visible">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-12 overflow-visible">
             {/* ================= LEFT IMAGES ================= */}
-            <div className="flex gap-4 lg:sticky lg:top-[120px] lg:self-start">
-              {/* LEFT THUMBNAILS */}
-              <div className="flex lg:flex-col gap-3 overflow-x-auto lg:overflow-y-auto lg:max-h-[500px]">
+            <div className="flex flex-col lg:flex-row gap-4 lg:sticky lg:top-[120px] lg:self-start">
+              {/* MAIN IMAGE */}
+              <div className="order-1 lg:order-2 relative bg-muted rounded-lg overflow-hidden aspect-square flex-1 w-full h-[450px]">
+                <Image
+                  src={pictures[selectedImage] || "/placeholder.svg"}
+                  alt="product-main-img"
+                  width={500}
+                  height={500}
+                  className="w-full h-full object-cover"
+                  priority
+                />
+              </div>
+
+              {/* THUMBNAILS */}
+              <div className="order-2 lg:order-1 flex lg:flex-col gap-3 overflow-x-auto lg:overflow-y-auto lg:max-h-[500px]">
                 {pictures.map((thumb, index) => (
                   <button
                     key={index}
@@ -166,18 +178,6 @@ export default function ProductPage({ product }) {
                     />
                   </button>
                 ))}
-              </div>
-
-              {/* RIGHT MAIN IMAGE */}
-              <div className="relative bg-muted rounded-lg overflow-hidden aspect-square flex-1">
-                <Image
-                  src={pictures[selectedImage] || "/placeholder.svg"}
-                  alt="product-main-img"
-                  width={500}
-                  height={500}
-                  className="w-full h-full object-cover"
-                  priority
-                />
               </div>
             </div>
 

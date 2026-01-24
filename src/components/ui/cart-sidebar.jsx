@@ -117,13 +117,13 @@ export default function CartSidebar() {
     <>
       <Toaster position="top-center" />
       <Sheet
-        className="relative z-[9999]"
+        className="relative "
         open={isCartOpen}
         onOpenChange={(open) =>
           open ? dispatch(toggleCart()) : dispatch(closeCart())
         }
       >
-        <SheetContent className="w-full sm:w-[400px] flex flex-col p-4 bg-white shadow-xl rounded-md">
+        <SheetContent className="w-full sm:w-[400px] flex flex-col p-4 bg-white shadow-xl z-[9999] rounded-md">
           <SheetHeader className="relative mb-4 border-b pb-2">
             <SheetTitle className="text-xl font-bold text-gray-800">
               Your Cart

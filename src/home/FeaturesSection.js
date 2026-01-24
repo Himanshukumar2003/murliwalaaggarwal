@@ -34,7 +34,7 @@ const FeaturesSection = () => {
       className=" bg-cover bg-center py-16  relative  "
       style={{ backgroundImage: "url('/img/bg-2.jpg')" }}
     >
-      <div className="max-w-7xl mx-auto">
+      <div className="max-w-7xl mx-auto px-4">
         <Heading
           title="Purity You Can Trust"
           subtitle="  Every product is crafted with intention, using only the finest

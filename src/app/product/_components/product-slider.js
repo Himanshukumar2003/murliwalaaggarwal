@@ -11,7 +11,7 @@ export default function ProductActionBar({ product }) {
 
   useEffect(() => {
     function handleScroll() {
-      setShowBar(window.scrollY > 400);
+      setShowBar(window.scrollY > 800);
     }
     window.addEventListener("scroll", handleScroll);
     return () => window.removeEventListener("scroll", handleScroll);
@@ -19,11 +19,11 @@ export default function ProductActionBar({ product }) {
 
   return (
     <div
-      className={`fixed bottom-0 left-0 w-full z-[999]
+      className={`hidden lg:flex    fixed bottom-0 left-0 w-full z-[999]
       transition-all duration-500 ease-[cubic-bezier(0,.97,.43,1)]
       ${showBar ? "translate-y-0 opacity-100" : "translate-y-full opacity-0"}`}
     >
-      <div className="border-t bg-white shadow-2xl">
+      <div className="border-t bg-white shadow-2xl w-full">
         <div className="max-w-7xl mx-auto px-4 py-3 flex flex-col md:flex-row items-center justify-between gap-4">
           {/* LEFT : Image + Title + Price */}
           <div className="flex items-center gap-4 flex-1 min-w-0">
