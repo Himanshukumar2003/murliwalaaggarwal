@@ -177,7 +177,7 @@ export default function AddressForm() {
 
           {/* Submit Button */}
           <div className="pt-4">
-            <Button type="submit" className="btn">
+            <Button type="submit" className="">
               {createMutation.isPending && <Loader2 className="animate-spin" />}{" "}
               Save Address
             </Button>

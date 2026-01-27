@@ -358,10 +358,12 @@ export default function CheckoutPage() {
         )}
         <div className="mt-4">
           <Dialog>
-            <DialogTrigger className="btn">Add New Address</DialogTrigger>
+            <DialogTrigger className=" border-2 border-primary p-3 bg-transparent   rounded-lg">
+              Add New Address
+            </DialogTrigger>
             <DialogContent>
               <DialogHeader>
-                <DialogTitle>Add New Address</DialogTitle>
+                <DialogTitle className="sr-only">Add New Address</DialogTitle>
               </DialogHeader>
               <AddressForm />
             </DialogContent>

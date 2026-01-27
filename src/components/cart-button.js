@@ -2,15 +2,19 @@
 
 import { useDispatch } from "react-redux";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
-import { toggleCart } from "@/lib/features/slice";
 import { addToCart } from "@/services/cart-services";
 import { handleError } from "@/lib/handle-error-toast";
 import { Loader2 } from "lucide-react";
 import { useAuth } from "@/providers/auth-provider";
-import { useRouter } from "next/navigation";
 import { toast } from "sonner";
+import {
+  addItem,
+  setCartItems,
+  toggleCart,
+  incrementQuantity,
+} from "@/lib/features/slice";
 
-// Local storage utilities
+// ====== LOCAL STORAGE HELPERS ======
 export const getLocalCart = () => {
   if (typeof window === "undefined") return [];
   const cart = localStorage.getItem("cart");
@@ -22,43 +26,45 @@ export const setLocalCart = (items) => {
   localStorage.setItem("cart", JSON.stringify(items));
 };
 
-export const addToLocalCart = (product) => {
+// Add or update item in localStorage
+export const addToLocalCart = (product, quantity = 1) => {
   const cart = getLocalCart();
   const existingItem = cart.find(
     (item) => item.id === product.id && item.slug === product.slug
   );
 
   if (existingItem) {
-    existingItem.quantity = (existingItem.quantity || 1) + 1;
+    existingItem.quantity += quantity;
   } else {
-    cart.push({ ...product, quantity: 1 });
+    cart.push({ ...product, quantity });
   }
 
   setLocalCart(cart);
   return cart;
 };
 
+// ====== COMPONENT ======
 export const AddToCartButtonProduct = ({
   product,
   sections,
   bag_print,
   print_sticker_on_box,
   front_print,
+  quantity = 1, // default quantity = 1
 }) => {
   const dispatch = useDispatch();
   const { user } = useAuth();
-  const router = useRouter();
   const queryClient = useQueryClient();
 
-  const { mutate, isPending, isError, error } = useMutation({
+  const { mutate, isPending } = useMutation({
     mutationFn: addToCart,
-    onSuccess: (data) => {
+    onSuccess: () => {
       queryClient.invalidateQueries(["cart"]);
       queryClient.invalidateQueries(["cart-items"]);
       dispatch(toggleCart());
       toast.success("Added to cart!");
     },
-    onError: (err, variables) => {
+    onError: (err) => {
       handleError(err);
     },
   });
@@ -71,14 +77,15 @@ export const AddToCartButtonProduct = ({
       ...(bag_print && { bag_print }),
       ...(print_sticker_on_box && { print_sticker_on_box }),
       ...(front_print && { front_print }),
+      quantity,
       slug: product.slug,
     };
 
     if (user) {
-      // Logged in user - use API
+      // Logged-in user - use API
       mutate(cartData);
     } else {
-      // Guest user - use localStorage
+      // Guest - localStorage + Redux
       const localProduct = {
         id: product.id,
         product_price: product.product_price,
@@ -91,7 +98,12 @@ export const AddToCartButtonProduct = ({
         ...(print_sticker_on_box && { print_sticker_on_box }),
         ...(front_print && { front_print }),
       };
-      addToLocalCart(localProduct);
+
+      const updatedCart = addToLocalCart(localProduct, quantity);
+
+      // Update Redux store with local cart
+      dispatch(setCartItems(updatedCart));
+
       dispatch(toggleCart());
       toast.success("Added to cart!");
     }

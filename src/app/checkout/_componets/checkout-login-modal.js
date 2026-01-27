@@ -19,7 +19,7 @@ export default function CheckoutLoginModal({
 }) {
   return (
     <Dialog open={open} onOpenChange={onOpenChange}>
-      <DialogContent className="min-w-[800px]">
+      <DialogContent className=" lg:max-w-3xl">
         <DialogHeader>
           <DialogTitle>Sign In to Checkout</DialogTitle>
         </DialogHeader>

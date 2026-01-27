@@ -28,24 +28,35 @@ import { toast } from "sonner";
 import Link from "next/link";
 import { useAuth } from "@/providers/auth-provider";
 import RelatedProducts from "./relativeProduct";
-import { ProductDetails } from "./ProductDetails";
 import ProductActionBar from "../../_components/product-slider";
 
 export default function ProductPage({ product, price }) {
   console.log({ product });
   const [selectedImage, setSelectedImage] = useState(0);
+
+  // ===================== BAG & FRONT PRINT =====================
   const [bagPrint, setBagPrint] = useState(false);
   const [bagPrintText, setBagPrintText] = useState("");
   const [frontPrint, setFrontPrint] = useState(false);
   const [frontPrintText, setFrontPrintText] = useState("");
   const [frontPrintType, setFrontPrintType] = useState("paper_cut");
-  // const [updatedPrice, setUpdatedPrice] = useState(product.price);
 
   const queryClient = useQueryClient();
-
   const { user } = useAuth();
   const isCartOpen = useSelector((state) => state.cart.isCartOpen);
 
+  // ===================== LOCAL CART FOR GUEST =====================
+  const [localCart, setLocalCartState] = useState([]);
+
+  // Load local cart from localStorage on mount if guest
+  useEffect(() => {
+    if (!user && typeof window !== "undefined") {
+      const cart = JSON.parse(localStorage.getItem("cart") || "[]");
+      setLocalCartState(cart);
+    }
+  }, [user]);
+
+  // ===================== CART MUTATIONS =====================
   const { mutate } = useMutation({
     mutationFn: ({ id, ...data }) => updateCartItem(id, { ...data }),
     onSuccess: () => {
@@ -62,12 +73,8 @@ export default function ProductPage({ product, price }) {
     },
   });
 
-  const {
-    data: cartItems,
-    isLoading,
-    isError,
-    error,
-  } = useQuery({
+  // ===================== CART QUERY FOR LOGGED-IN USERS =====================
+  const { data: cartItems } = useQuery({
     queryKey: ["cart-items", isCartOpen],
     queryFn: async () => {
       const { data } = await getCartItems();
@@ -76,17 +83,20 @@ export default function ProductPage({ product, price }) {
     enabled: !!user,
   });
 
+  // ===================== CHECK IF PRODUCT IS IN CART =====================
   const isAddedToCart = useMemo(() => {
-    if (cartItems) {
-      return cartItems?.find((c) => c.product_id === product.id) ?? null;
+    if (user) {
+      return cartItems?.find((c) => c.product_id === product.id) || null;
     }
-  }, [cartItems]);
+    return localCart.find((c) => c.id === product.id) || null;
+  }, [cartItems, localCart, user, product.id]);
 
+  // ===================== HANDLE SCROLL =====================
   useEffect(() => {
     window.scrollTo(0, 0);
   }, []);
 
-  // 🧠 Automatically handle out-of-stock and over-quantity items
+  // ===================== AUTO HANDLE OUT-OF-STOCK =====================
   useEffect(() => {
     if (!cartItems?.length) return;
 
@@ -94,13 +104,10 @@ export default function ProductPage({ product, price }) {
     let updatedCount = 0;
 
     cartItems.forEach((item) => {
-      // Remove out of stock
       if (item.stock <= 0) {
         deleteMutation.mutate({ id: item.id });
         removedCount++;
-      }
-      // If quantity > stock, adjust to stock
-      else if (item.quantity > item.stock) {
+      } else if (item.quantity > item.stock) {
         mutate({ id: item.id, quantity: item.stock });
         updatedCount++;
       }
@@ -122,12 +129,8 @@ export default function ProductPage({ product, price }) {
       );
     }
   }, [cartItems]);
-  // DEBUG Logs
-  // console.log("Bag Print Text:", bagPrintText);
-  // console.log("Front Print Text:", frontPrintText);
-  // console.log("Front Print TYPE:", frontPrintType);
 
-  // Dynamic sections
+  // ===================== DYNAMIC SECTIONS =====================
   const [selectedSections, setSelectedSections] = useState(
     product.sections?.map((section) => ({
       section: section.section,
@@ -145,15 +148,23 @@ export default function ProductPage({ product, price }) {
   }, [selectedSections, product]);
 
   const [openDropdown, setOpenDropdown] = useState(null);
-  // console.log("Selected Sections:", selectedSections);
 
-  // Dynamic main images
+  // ===================== PRODUCT IMAGES =====================
   const pictures =
     product.pictures?.map((p) => `${config.file_base}${p}`) || [];
 
+  // ===================== GUEST CART HANDLERS =====================
+  const updateLocalQuantity = (newQty) => {
+    const updatedCart = localCart.map((item) =>
+      item.id === product.id ? { ...item, quantity: newQty } : item
+    );
+    setLocalCartState(updatedCart);
+    localStorage.setItem("cart", JSON.stringify(updatedCart));
+  };
+
   return (
     <>
-      <main className=" bg-background py-12 overflow-visible">
+      <main className="bg-background py-12 overflow-visible">
         <div className="max-w-7xl px-4 mx-auto overflow-visible">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-12 overflow-visible">
             {/* ================= LEFT IMAGES ================= */}
@@ -204,11 +215,8 @@ export default function ProductPage({ product, price }) {
 
               {/* Price */}
               <div className="flex items-center gap-3">
-                {/* <span className="text-3xl italic text-secondary">
-                  ₹{product.updatedPrice}
-                </span> */}
                 <span className="text-3xl italic text-secondary">
-                  ₹{updatedPrice}
+                  ₹{updatedPrice} / {product.price}
                 </span>
               </div>
 
@@ -232,6 +240,7 @@ export default function ProductPage({ product, price }) {
                     {product.sku}
                   </span>
                 </div>
+
                 <div className="flex justify-between py-2 border-b border-stone-200">
                   <span className="text-stone-600">Net wt.</span>
                   <span className="font-medium text-stone-900">
@@ -240,6 +249,7 @@ export default function ProductPage({ product, price }) {
                     </span>
                   </span>
                 </div>
+
                 {product.tags?.length > 0 && (
                   <div className="pt-2">
                     <p className="text-stone-600 mb-2">Tags:</p>
@@ -257,7 +267,7 @@ export default function ProductPage({ product, price }) {
                 )}
               </div>
 
-              {/* ================= Dynamic Sections ================= */}
+              {/* ================= DYNAMIC SECTIONS ================= */}
               <div className="space-y-6 mt-8">
                 {selectedSections?.map((section, idx) => (
                   <div
@@ -307,7 +317,6 @@ export default function ProductPage({ product, price }) {
                                       : p
                                   )
                                 );
-                                // setUpdatedPrice(product.price + swt.price);
                                 setOpenDropdown(null);
                               }}
                               className="cursor-pointer p-3 rounded-lg hover:bg-secondary hover:text-white transition-all"
@@ -321,11 +330,10 @@ export default function ProductPage({ product, price }) {
                 ))}
               </div>
 
-              {/* ================= BAG PRINT ================= */}
-
+              {/* ================= BAG & FRONT PRINT ================= */}
               {product.have_sticker_options && (
                 <>
-                  {" "}
+                  {/* BAG PRINT */}
                   <div className="space-y-3 bg-amber-50 p-5 rounded-2xl border-2 border-amber-200">
                     <label className="flex items-center gap-3 font-semibold">
                       <input
@@ -347,7 +355,8 @@ export default function ProductPage({ product, price }) {
                       />
                     )}
                   </div>
-                  {/* ================= FRONT PRINT ================= */}
+
+                  {/* FRONT PRINT */}
                   <div className="space-y-3 bg-blue-50 p-5 rounded-2xl border-2 border-blue-200">
                     <label className="flex items-center gap-3 font-semibold">
                       <input
@@ -394,47 +403,11 @@ export default function ProductPage({ product, price }) {
                         </Select>
                       </>
                     )}
-                  </div>{" "}
+                  </div>
                 </>
               )}
 
-              {/* ================= ADD TO CART ================= */}
-
-              {/* <div className="flex gap-4 flex-col sm:flex-row mt-4">
-              <div className="flex items-center border border-border rounded-lg">
-                <button
-                  onClick={() => handleQuantityChange(-1)} // Decrease quantity
-                  className="px-4 py-3 hover:bg-muted"
-                  disabled={quantity <= 1} // Disable if quantity is 1
-                >
-                  <Minus className="h-5 w-5" />
-                </button>
-
-                <input
-                  type="number"
-                  value={quantity}
-                  readOnly
-                  className="w-16 text-center border-l border-r py-3 bg-background"
-                />
-
-                <button
-                  onClick={() => handleQuantityChange(1)} // Increase quantity
-                  className="px-4 py-3 hover:bg-muted"
-                  disabled={quantity >= product.stock} // Disable if quantity exceeds stock
-                >
-                  <Plus className="h-5 w-5" />
-                </button>
-              </div>
-
-              <Button
-                className="flex-1 bg-primary text-white hover:bg-primary/90 transition"
-                onClick={handleAddToCart}
-                disabled={quantity <= 0 || quantity > product.stock}
-              >
-                Add to Cart
-              </Button>
-            </div> */}
-
+              {/* ================= ADD TO CART & QUANTITY ================= */}
               <div className="space-y-4">
                 {isAddedToCart ? (
                   <div className="flex gap-4 items-center">
@@ -444,13 +417,17 @@ export default function ProductPage({ product, price }) {
                       <button
                         className="px-4 py-3 hover:bg-muted disabled:opacity-50"
                         disabled={isAddedToCart.quantity <= 1}
-                        onClick={() =>
-                          mutate({
-                            id: isAddedToCart.id,
-                            quantity: isAddedToCart.quantity - 1,
-                            product_price: updatedPrice,
-                          })
-                        }
+                        onClick={() => {
+                          if (user) {
+                            mutate({
+                              id: isAddedToCart.id,
+                              quantity: isAddedToCart.quantity - 1,
+                              product_price: updatedPrice,
+                            });
+                          } else {
+                            updateLocalQuantity(isAddedToCart.quantity - 1);
+                          }
+                        }}
                       >
                         <Minus className="h-5 w-5" />
                       </button>
@@ -467,13 +444,17 @@ export default function ProductPage({ product, price }) {
                       <button
                         className="px-4 py-3 hover:bg-muted disabled:opacity-50"
                         disabled={isAddedToCart.quantity >= product.stock}
-                        onClick={() =>
-                          mutate({
-                            id: isAddedToCart.id,
-                            quantity: isAddedToCart.quantity + 1,
-                            product_price: updatedPrice,
-                          })
-                        }
+                        onClick={() => {
+                          if (user) {
+                            mutate({
+                              id: isAddedToCart.id,
+                              quantity: isAddedToCart.quantity + 1,
+                              product_price: updatedPrice,
+                            });
+                          } else {
+                            updateLocalQuantity(isAddedToCart.quantity + 1);
+                          }
+                        }}
                       >
                         <Plus className="h-5 w-5" />
                       </button>
@@ -503,20 +484,19 @@ export default function ProductPage({ product, price }) {
                   />
                 )}
               </div>
-
-              {/* Delivery Info */}
             </div>
           </div>
         </div>
       </main>
+
       <ProductActionBar product={product} price={updatedPrice} />
       <Image
         src="/img/product-mid.png"
         alt="banner"
         width={2000}
         height={2000}
-        className="w-full   object-contain h-auto rounded-t-lg"
-      ></Image>
+        className="w-full object-contain h-auto rounded-t-lg"
+      />
       <RelatedProducts
         categoryId={product.category_id}
         currentProductId={product.id}
