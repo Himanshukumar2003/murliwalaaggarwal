@@ -26,7 +26,6 @@ export default async function BookPage({ params }) {
         className="w-full   object-contain h-auto rounded-t-lg"
       ></Image>
       <ProductActionBar product={product}></ProductActionBar>
-      <ProductPage product={product} />
     </>
   );
 }

@@ -216,7 +216,7 @@ export default function ProductPage({ product, price }) {
               {/* Price */}
               <div className="flex items-center gap-3">
                 <span className="text-3xl italic text-secondary">
-                  ₹{updatedPrice} / {product.price}
+                  ₹{updatedPrice}
                 </span>
               </div>
 
