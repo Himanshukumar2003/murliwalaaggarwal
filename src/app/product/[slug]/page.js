@@ -1,5 +1,4 @@
 import Image from "next/image";
-import ProductActionBar from "../_components/product-slider";
 import ProductPage from "./_components/productPage";
 
 export default async function BookPage({ params }) {
@@ -25,7 +24,7 @@ export default async function BookPage({ params }) {
         height={2000}
         className="w-full   object-contain h-auto rounded-t-lg"
       ></Image>
-      <ProductActionBar product={product}></ProductActionBar>
+      <ProductPage product={product}></ProductPage>
     </>
   );
 }
